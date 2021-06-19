@@ -1,0 +1,74 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": ["plugin:react/recommended", "airbnb", "prettier"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": ["react", "@typescript-eslint"],
+    "rules": {
+        "import/no-cycle": ["off", { "maxDepth": 3 }],
+        "react/jsx-filename-extension": "off",
+        "react/jsx-props-no-spreading": "off",
+        "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+        "mocha/no-sibling-hooks": "off",
+        "react/prop-types": 0,
+        "no-param-reassign": 0,
+        "react/prefer-es6-class": 1,
+        "import/no-unresolved": "warn",
+        "import/extensions": "off",
+        "no-use-before-define": "off",
+        "camelcase": "off",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "object-shorthand": "off",
+        "import/prefer-default-export": "off",
+        "spaced-comment": "off",
+        "arrow-body-style": "warn",
+        "no-prototype-builtins": "off",
+        "prefer-const": "off",
+        "no-else-return": "warn",
+        "import/newline-after-import": "warn",
+        "@typescript-eslint/no-empty-interface": "warn",
+        "react/no-unescaped-entities": "off",
+        "@typescript-eslint/ban-ts-comment": "warn",
+        "react/button-has-type": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/no-static-element-interactions": "off",
+        "import/order": "warn",
+        "no-plusplus": "off",
+        "no-await-in-loop": "warn",
+        "no-shadow": "off",
+        "no-console": "warn",
+        "@typescript-eslint/no-shadow": ["error"],
+        "import/no-useless-path-segments": "warn",
+        "jsx-a11y/label-has-associated-control": "off",
+        "no-nested-ternary": "off",
+        "import/no-named-as-default": "off",
+        "@typescript-eslint/no-empty-function": "warn",
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "import/no-extraneous-dependencies": ["warn", { "devDependencies": true }],
+        "react/no-array-index-key": "warn",
+        "jsx-a11y/no-noninteractive-element-interactions": "off",
+        "react/require-default-props": "off",
+        "no-underscore-dangle": "off"
+    },
+    "settings": {
+        "import/parsers": {
+            "@typescript-eslint/parser": [".ts", ".tsx"]
+        },
+        "import/resolver": {
+            "typescript": {
+                "alwaysTryTypes": true // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+            }
+        }
+    }
+}
