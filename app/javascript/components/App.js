@@ -1,12 +1,12 @@
-/* eslint-disable sort-imports */
-import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
-import { AppProvider, EmptyState, Page } from '@shopify/polaris';
 import React from 'react';
-import { authenticatedFetch } from '@shopify/app-bridge-utils';
 import enTranslations from '@shopify/polaris/locales/en.json';
-import { Provider as AppBridgeProvider, TitleBar } from '@shopify/app-bridge-react';
-import Routes from './Routes';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
+import { AppProvider } from '@shopify/polaris';
+import { BrowserRouter } from 'react-router-dom';
+import { authenticatedFetch } from '@shopify/app-bridge-utils';
+import { Provider as AppBridgeProvider } from '@shopify/app-bridge-react';
+import Routes from './routes/Routes';
+
 export default function App() {
   const client = new ApolloClient({
     link: new HttpLink({
@@ -16,13 +16,12 @@ export default function App() {
     }),
     cache: new InMemoryCache(),
   });
+
   let getShopifyData = document.getElementById('shopify-app-init').dataset;
 
   return (
     <BrowserRouter>
       <AppProvider i18n={enTranslations}>
-        <Link to="/products">Link product</Link>
-        <Link to="/account">Link account</Link>
         <ApolloProvider client={client}>
           <AppBridgeProvider
             config={{
