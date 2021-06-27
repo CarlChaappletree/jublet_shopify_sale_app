@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { useAppBridge } from '@shopify/app-bridge-react';
 import { Redirect } from '@shopify/app-bridge/actions';
 import { gql, useMutation } from '@apollo/client';
-import AppContext from '../context/AppContext';
+import { ReactContextStore } from '../context/ReactContext';
 
 const UPDATE_SHOP_QUERY = gql`
   mutation UpdateShop($shopify_domain: String!) {
@@ -26,11 +26,13 @@ const ListTitle = styled.div`
 const ListContent = styled.div`
   margin-top: 10px;
 `;
+
 const SignUp = () => {
   const [updateShop] = useMutation(UPDATE_SHOP_QUERY);
   const app = useAppBridge();
 
-  const value = useContext(AppContext);
+  const value = useContext(ReactContextStore);
+
   const { shopOrigin } = value;
 
   const handleSubmit = () => {

@@ -1,12 +1,12 @@
 import React from 'react';
 import enTranslations from '@shopify/polaris/locales/en.json';
-import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache, gql, useQuery } from '@apollo/client';
+import { ApolloClient, ApolloProvider, HttpLink, InMemoryCache } from '@apollo/client';
 import { AppProvider } from '@shopify/polaris';
 import { BrowserRouter } from 'react-router-dom';
 import { authenticatedFetch } from '@shopify/app-bridge-utils';
-import { Loading } from '@shopify/app-bridge-react';
+
 import Routes from './routes/Routes';
-import AppContext from '../context/AppContext';
+import ReactContext from '../context/ReactContext';
 
 export default function App() {
   const client = new ApolloClient({
@@ -18,24 +18,15 @@ export default function App() {
     cache: new InMemoryCache(),
   });
 
-  let getShopifyData = document.getElementById('shopify-app-init').dataset;
-  const config = {
-    apiKey: getShopifyData.apiKey,
-    shopOrigin: getShopifyData.shopOrigin,
-  };
-
   return (
-    <AppProvider i18n={enTranslations}>
-      <ApolloProvider client={client}>
-        <AppContext config={config}>
-          <Loading />
-          <AppContext>
-            <BrowserRouter>
-              <Routes />
-            </BrowserRouter>
-          </AppContext>
-        </AppContext>
-      </ApolloProvider>
-    </AppProvider>
+    <BrowserRouter>
+      <AppProvider i18n={enTranslations}>
+        <ApolloProvider client={client}>
+          <ReactContext>
+            <Routes />
+          </ReactContext>
+        </ApolloProvider>
+      </AppProvider>
+    </BrowserRouter>
   );
 }
