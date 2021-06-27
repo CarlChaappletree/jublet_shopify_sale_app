@@ -31,9 +31,9 @@ const SignUp = () => {
   const [updateShop] = useMutation(UPDATE_SHOP_QUERY);
   const app = useAppBridge();
 
-  const value = useContext(ReactContextStore);
+  const ReactContext = useContext(ReactContextStore);
 
-  const { shopOrigin } = value;
+  const { shopOrigin } = ReactContext;
 
   const handleSubmit = () => {
     updateShop({ variables: { shopify_domain: shopOrigin } });

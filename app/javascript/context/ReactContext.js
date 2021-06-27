@@ -3,15 +3,18 @@ import React, { createContext } from 'react';
 import { Provider as AppBridgeProvider } from '@shopify/app-bridge-react';
 
 export const ReactContextStore = createContext();
+
 export default function ReactContext({ children }) {
-  let getShopifyData = document.getElementById('shopify-app-init').dataset;
+  const getShopifyData = document.getElementById('shopify-app-init').dataset;
   const config = {
     apiKey: getShopifyData.apiKey,
     shopOrigin: getShopifyData.shopOrigin,
   };
+
   let store = {
-    apiKey: getShopifyData.apiKey,
-    shopOrigin: getShopifyData.shopOrigin,
+    apiKey: config.apiKey,
+    shopOrigin: config.shopOrigin,
+    shopLegalAgreement: getShopifyData.shopLegalAgreement === 'true',
   };
 
   return (
