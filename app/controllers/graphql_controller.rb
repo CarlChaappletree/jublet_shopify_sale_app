@@ -1,5 +1,7 @@
+# class GraphqlController < ApplicationController
 class GraphqlController < AuthenticatedController
-  # If accessing from outside this domain, nullify the session
+
+# If accessing from outside this domain, nullify the session
   # This allows for outside API access while preventing CSRF attacks,
   # but you'll have to authenticate your user separately
   # protect_from_forgery with: :null_session
@@ -16,7 +18,6 @@ class GraphqlController < AuthenticatedController
     render json: result
   rescue => e
     raise e unless Rails.env.development?
-
     handle_error_in_development e
   end
 

@@ -1,9 +1,24 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { Page } from '@shopify/polaris';
-import { Layout, Button, Card, Form, FormLayout, TextField, List, Scrollable } from '@shopify/polaris';
-import { Link, Redirect } from 'react-router-dom';
+import { Layout, Card, Scrollable } from '@shopify/polaris';
 import styled from 'styled-components';
+import { useAppBridge } from '@shopify/app-bridge-react';
+import { Redirect } from '@shopify/app-bridge/actions';
+import { gql, useMutation } from '@apollo/client';
+import AppContext from '../context/AppContext';
+
+const UPDATE_SHOP_QUERY = gql`
+  mutation UpdateShop($shopify_domain: String!) {
+    updateShop(input: { shopifyDomain: $shopify_domain }) {
+      shop {
+        id
+      }
+      errors
+    }
+  }
+`;
+
 const ListTitle = styled.div`
   padding: 13px 0;
 `;
@@ -12,13 +27,16 @@ const ListContent = styled.div`
   margin-top: 10px;
 `;
 const SignUp = () => {
-  const [redirectState, setRedirectState] = useState(false);
-  const SubmitApplication = () => {
-    setRedirectState(true);
+  const [updateShop] = useMutation(UPDATE_SHOP_QUERY);
+  const app = useAppBridge();
+
+  const value = useContext(AppContext);
+  const { shopOrigin } = value;
+
+  const handleSubmit = () => {
+    updateShop({ variables: { shopify_domain: shopOrigin } });
+    Redirect.create(app).dispatch(Redirect.Action.APP, '/account');
   };
-  if (redirectState) {
-    return <Redirect to="/account" />;
-  }
   return (
     <Page title="Welcome to Jublet Connect">
       <Layout>
@@ -26,7 +44,10 @@ const SignUp = () => {
           <Card
             sectioned
             title="JUBLET Terms of Policy"
-            primaryFooterAction={{ content: 'Submit', onAction: () => SubmitApplication() }}
+            primaryFooterAction={{
+              content: 'Submit',
+              onAction: () => handleSubmit(),
+            }}
           >
             <Scrollable shadow style={{ height: '100px' }} focusable>
               <p>
