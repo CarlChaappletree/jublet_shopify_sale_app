@@ -1,9 +1,13 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useContext } from 'react';
 import { AccountConnection, Link, Page, Layout } from '@shopify/polaris';
+import { ReactContextStore } from '../context/ReactContext';
+import Landing from './Landing';
 
 export default function Account() {
-  const [connected, setConnected] = useState(false);
+  const ReactContext = useContext(ReactContextStore);
   const accountName = connected ? 'Jane Appleseed' : '';
+  const { shopLegalAgreement } = ReactContext;
+  const [connected, setConnected] = useState(shopLegalAgreement);
 
   const handleAction = useCallback(() => {
     setConnected((connected) => !connected);
@@ -20,22 +24,25 @@ export default function Account() {
   );
 
   return (
-    <Page title="Account">
-      <Layout>
-        <Layout.AnnotatedSection title="Price updates" description="Temporarily disable all Sample App price updates">
-          <AccountConnection
-            accountName={accountName}
-            connected={connected}
-            title="Example App"
-            action={{
-              content: buttonText,
-              onAction: handleAction,
-            }}
-            details={details}
-            termsOfService={terms}
-          />
-        </Layout.AnnotatedSection>
-      </Layout>
-    </Page>
+    <>
+      <Landing />
+    </>
+    // <Page title="Account">
+    //   <Layout>
+    //     <Layout.AnnotatedSection title="Price updates" description="Temporarily disable all Sample App price updates">
+    //       <AccountConnection
+    //         accountName={accountName}
+    //         connected={connected}
+    //         title="Example App"
+    //         action={{
+    //           content: buttonText,
+    //           onAction: handleAction,
+    //         }}
+    //         details={details}
+    //         termsOfService={terms}
+    //       />
+    //     </Layout.AnnotatedSection>
+    //   </Layout>
+    // </Page>
   );
 }
