@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useReducer } from 'react';
+import React, { useState, useCallback, useReducer, useContext } from 'react';
 import {
   List,
   Card,
@@ -12,10 +12,11 @@ import {
   ChoiceList,
 } from '@shopify/polaris';
 import { gql, useMutation } from '@apollo/client';
+import { ReactContextStore } from '../../context/ReactContext';
 
-const POST_USER_FORM_QUERY = gql`
-  mutation PostUserForm($user_inputs: String!) {
-    postUserForm(input: { shopifyDomain: $shopify_domain }) {
+const UPDATE_APPLICATION_QUERY = gql`
+  mutation UpdateApplication($shopify_domain: String!, $form: ApplicationFormAttributes!) {
+    updateApplication(input: { shopifyDomain: $shopify_domain, form: $form }) {
       shop {
         id
       }
@@ -24,7 +25,7 @@ const POST_USER_FORM_QUERY = gql`
   }
 `;
 const ApplicationForm = () => {
-  const [postUserForm, { loading, error }] = useMutation(POST_USER_FORM_QUERY);
+  const [postUserForm, { loading, error }] = useMutation(UPDATE_APPLICATION_QUERY);
   const [isFirstPageState, setIsFirstPageSate] = useState(false);
   const [selected, setSelected] = useState([]);
   const [selectedOtherTextFiledValue, setSelectedOtherTextFiledValue] = useState('');
@@ -41,15 +42,15 @@ const ApplicationForm = () => {
     const newValue = value;
     setUserInput({ [id]: newValue });
   };
+  const ReactContext = useContext(ReactContextStore);
 
+  const { shopOrigin } = ReactContext;
   const handleSubmit = () => {
-    console.log('result', {
-      ...userInput,
-      shopClassification: `${selected.join(', ')}, ${selectedOtherTextFiledValue}}`,
-    });
+    console.log('hi--', { ...userInput, shopClassification: `${selected.join(', ')}, ${selectedOtherTextFiledValue}` });
     postUserForm({
       variables: {
-        user_inputs: { ...userInput, shopClassification: `${selected.join(', ')}, ${selectedOtherTextFiledValue}` },
+        shopify_domain: shopOrigin,
+        form: { ...userInput, shopClassification: `${selected.join(', ')}, ${selectedOtherTextFiledValue}` },
       },
     });
 
@@ -62,9 +63,6 @@ const ApplicationForm = () => {
     //   instagram: '',
     // });
   };
-
-  console.log('userInput', userInput);
-  console.log('selected', selected);
 
   const handleSelectChange = useCallback((value) => setSelected(value), []);
 
