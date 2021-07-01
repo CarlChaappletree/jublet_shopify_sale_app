@@ -10,9 +10,8 @@ module Mutations
       shop = Shop.find_by!(shopify_domain: shopify_domain)
       return {} unless shop
 
-      if shop.update!(
-        application_form: form
-      )
+      if shop.update!(application_form: form)
+        ShopApplicationNotifierMailer.send_application_email(form.to_h).deliver_later
         {
           shop: shop,
           errors: []

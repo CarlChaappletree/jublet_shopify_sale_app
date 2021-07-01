@@ -57,7 +57,11 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
-  # config.active_job.queue_adapter     = :resque
+  # https://gist.github.com/maxivak/690e6c353f65a86a4af9
+  config.active_job.queue_adapter = :sidekiq
+  config.active_job.queue_name_prefix = "jublet_shopify_app_#{Rails.env}"
+  config.active_job.queue_name_delimiter = "_"
+
   # config.active_job.queue_name_prefix = "app_bridge_auth_production"
 
   config.action_mailer.perform_caching = false

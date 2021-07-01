@@ -31,9 +31,10 @@ Rails.application.configure do
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
+  config.action_mailer.perform_deliveries = true
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
@@ -60,4 +61,11 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # Use a real queuing backend for Active Job (and separate queues per environment).
+  # https://gist.github.com/maxivak/690e6c353f65a86a4af9
+  config.active_job.queue_adapter = :sidekiq
+  config.active_job.queue_name_prefix = "jublet_shopify_app_#{Rails.env}"
+  config.active_job.queue_name_delimiter = "_"
+
 end

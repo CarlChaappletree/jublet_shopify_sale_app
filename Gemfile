@@ -69,3 +69,6 @@ gem 'graphiql-rails', group: :development
 
 #https://stackoverflow.com/a/66921259
 gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dabd025dcbd36a8a60f'
+
+gem "sidekiq"
+gem "sinatra"
