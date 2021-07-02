@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useState } from 'react';
 import { Provider as AppBridgeProvider } from '@shopify/app-bridge-react';
 import {
   applicationViewReducer,
@@ -18,11 +18,15 @@ export default function ReactContext({ children }) {
     applicationViewReducer,
     applicationViewInitialState
   );
-
+  console.log(', getShopifyData.shopLegalAgreement', getShopifyData.shopLegalAgreement);
+  const [shopLegalAgreement, setShopLegalAgreement] = useState(getShopifyData.shopLegalAgreement === true);
   let store = {
     apiKey: config.apiKey,
     shopOrigin: config.shopOrigin,
-    shopLegalAgreement: getShopifyData.shopLegalAgreement === 'true',
+    shopLegalAgreementStore: {
+      shopLegalAgreement,
+      setShopLegalAgreement,
+    },
     applicationViewStore: {
       applicationViewDispatch,
       applicationViewState: applicationViewState.applicationView,

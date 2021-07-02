@@ -7,12 +7,8 @@ module Mutations
     field :errors, [String], null: false
 
     def resolve(shopify_domain:)
-      shop = Shop.find_by!(shopify_domain: shopify_domain)
-      return {} unless shop
-
-      if shop.update!(
-        legal_agreement: true
-      )
+      shop = Shop.find_by(shopify_domain: shopify_domain)
+      if shop.update(legal_agreement: true)
         {
             shop: shop,
             errors: []
@@ -23,6 +19,10 @@ module Mutations
             errors: shop.errors.full_messages
         }
       end
+    rescue ActiveRecord::RecordInvalid => e
+      GraphQL::ExecutionError.new("#{e}")
+    rescue => e
+      GraphQL::ExecutionError.new("#{e}")
     end
   end
 end

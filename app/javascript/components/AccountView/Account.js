@@ -1,7 +1,6 @@
 import React, { useCallback, useState, useContext } from 'react';
 import { AccountConnection, Link, Page, Layout } from '@shopify/polaris';
-import { ReactContextStore } from '../context/ReactContext';
-import Landing from './Landing';
+import { ReactContextStore } from '../../context/ReactContext';
 
 export default function Account() {
   const ReactContext = useContext(ReactContextStore);
@@ -24,25 +23,22 @@ export default function Account() {
   );
 
   return (
-    <>
-      <Landing />
-    </>
-    // <Page title="Account">
-    //   <Layout>
-    //     <Layout.AnnotatedSection title="Price updates" description="Temporarily disable all Sample App price updates">
-    //       <AccountConnection
-    //         accountName={accountName}
-    //         connected={connected}
-    //         title="Example App"
-    //         action={{
-    //           content: buttonText,
-    //           onAction: handleAction,
-    //         }}
-    //         details={details}
-    //         termsOfService={terms}
-    //       />
-    //     </Layout.AnnotatedSection>
-    //   </Layout>
-    // </Page>
+    <Page title="Account">
+      <Layout>
+        <Layout.AnnotatedSection title="Price updates" description="Temporarily disable all Sample App price updates">
+          <AccountConnection
+            accountName={accountName}
+            connected={connected}
+            title="Example App"
+            action={{
+              content: buttonText,
+              onAction: handleAction,
+            }}
+            details={details}
+            termsOfService={terms}
+          />
+        </Layout.AnnotatedSection>
+      </Layout>
+    </Page>
   );
 }

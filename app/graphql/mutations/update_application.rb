@@ -8,10 +8,8 @@ module Mutations
 
     def resolve(shopify_domain:, form:)
       shop = Shop.find_by!(shopify_domain: shopify_domain)
-      return {} unless shop
-
       if shop.update!(application_form: form)
-        ShopApplicationNotifierMailer.send_application_email(form.to_h).deliver_later
+        # ShopApplicationNotifierMailer.send_application_email(form.to_h).deliver_later
         {
           shop: shop,
           errors: []
@@ -22,6 +20,10 @@ module Mutations
           errors: shop.errors.full_messages
         }
       end
+    rescue ActiveRecord::RecordInvalid => e
+      GraphQL::ExecutionError.new("#{e}")
+    rescue => e
+      GraphQL::ExecutionError.new("#{e}")
     end
   end
 end

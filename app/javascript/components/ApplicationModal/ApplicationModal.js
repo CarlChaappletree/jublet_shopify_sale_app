@@ -2,6 +2,7 @@ import React, { useState, useCallback, useContext } from 'react';
 import { Button, Modal } from '@shopify/polaris';
 import ApplicationForm from './ApplicationForm';
 import ApplicationInfo from './ApplicationInfo';
+import ApplicationPolicy from './ApplicationPolicy';
 import { ReactContextStore } from '../../context/ReactContext';
 
 const ApplicationModal = () => {
@@ -16,6 +17,7 @@ const ApplicationModal = () => {
   const NOTIFICATION_STATES = {
     SET_INTRO_VIEW: <ApplicationInfo />,
     SET_FORM_VIEW: <ApplicationForm />,
+    SET_POLICY_VIEW: <ApplicationPolicy modalClose={toggleActive} />,
   };
 
   return (

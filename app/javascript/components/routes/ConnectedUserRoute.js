@@ -13,8 +13,12 @@ function ConnectedUserRoute({ children, ...props }) {
   const handleRedirect = () => {
     useAppBridgeRedirect.dispatch(Redirect.Action.APP, '/');
   };
-  const { shopLegalAgreement } = ReactContext;
-  return shopLegalAgreement ? <Route {...props}>{children}</Route> : <div>{handleRedirect()}</div>;
+  const { shopLegalAgreementStore } = ReactContext;
+  return shopLegalAgreementStore.shopLegalAgreement ? (
+    <Route {...props}>{children}</Route>
+  ) : (
+    <div>{handleRedirect()}</div>
+  );
 }
 
 export default ConnectedUserRoute;
