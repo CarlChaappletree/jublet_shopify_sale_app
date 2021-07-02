@@ -1,14 +1,22 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import { Button, Modal } from '@shopify/polaris';
 import ApplicationForm from './ApplicationForm';
+import ApplicationInfo from './ApplicationInfo';
+import { ReactContextStore } from '../../context/ReactContext';
 
 const ApplicationModal = () => {
   const [active, setActive] = useState(false);
+  const ReactContext = useContext(ReactContextStore);
+  const { applicationViewStore } = ReactContext;
 
-  // modal
   const toggleActive = useCallback(() => {
     setActive((active) => !active);
   }, []);
+
+  const NOTIFICATION_STATES = {
+    SET_INTRO_VIEW: <ApplicationInfo />,
+    SET_FORM_VIEW: <ApplicationForm />,
+  };
 
   return (
     <Modal
@@ -23,9 +31,7 @@ const ApplicationModal = () => {
       open={active}
       onClose={toggleActive}
     >
-      <Modal.Section>
-        <ApplicationForm />
-      </Modal.Section>
+      <Modal.Section>{NOTIFICATION_STATES[applicationViewStore.applicationViewState]}</Modal.Section>
     </Modal>
   );
 };
