@@ -18,8 +18,8 @@ export default function ReactContext({ children }) {
     applicationViewReducer,
     applicationViewInitialState
   );
-  console.log(', getShopifyData.shopLegalAgreement', getShopifyData.shopLegalAgreement);
-  const [shopLegalAgreement, setShopLegalAgreement] = useState(getShopifyData.shopLegalAgreement === true);
+  const [shopLegalAgreement, setShopLegalAgreement] = useState(getShopifyData.shopLegalAgreement === 'true');
+
   let store = {
     apiKey: config.apiKey,
     shopOrigin: config.shopOrigin,
