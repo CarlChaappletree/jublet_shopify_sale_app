@@ -11,6 +11,9 @@ const getShopifyData = document.getElementById('shopify-app-init').dataset;
 const config = {
   apiKey: getShopifyData.apiKey,
   shopOrigin: getShopifyData.shopOrigin,
+  approved: getShopifyData.approved === 'true',
+  shopLegalAgreement: getShopifyData.shopLegalAgreement === 'true',
+  connected: getShopifyData.connected === 'true',
 };
 
 export default function ReactContext({ children }) {
@@ -18,11 +21,15 @@ export default function ReactContext({ children }) {
     applicationViewReducer,
     applicationViewInitialState
   );
-  const [shopLegalAgreement, setShopLegalAgreement] = useState(getShopifyData.shopLegalAgreement === 'true');
+  const [shopLegalAgreement, setShopLegalAgreement] = useState(config.shopLegalAgreement);
 
   let store = {
-    apiKey: config.apiKey,
-    shopOrigin: config.shopOrigin,
+    shopStore: {
+      shopOrigin: config.shopOrigin,
+      apiKey: config.apiKey,
+      approved: config.approved,
+      connected: config.connected,
+    },
     shopLegalAgreementStore: {
       shopLegalAgreement,
       setShopLegalAgreement,

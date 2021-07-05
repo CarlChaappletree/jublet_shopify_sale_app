@@ -22,12 +22,12 @@ const ApplicationModal = () => {
 
   return (
     <Modal
-      title="Connect account"
+      title="Apply for connecting account"
       limitHeight={true}
       large
       activator={
         <Button primary onClick={toggleActive}>
-          Connect account
+          Apply for connecting account
         </Button>
       }
       open={active}

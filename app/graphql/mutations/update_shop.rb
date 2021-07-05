@@ -8,7 +8,7 @@ module Mutations
 
     def resolve(shopify_domain:)
       shop = Shop.find_by(shopify_domain: shopify_domain)
-      if shop.update(legal_agreement: true)
+      if shop.update(legal_agreement: true, connected: true, connected_at: Time.current)
         {
             shop: shop,
             errors: []

@@ -45,7 +45,7 @@ const ApplicationForm = () => {
   };
   const ReactContext = useContext(ReactContextStore);
 
-  const { shopOrigin, applicationViewStore } = ReactContext;
+  const { shopStore, applicationViewStore } = ReactContext;
 
   const formValidator = () => {
     let isValid = true;
@@ -82,7 +82,7 @@ const ApplicationForm = () => {
       try {
         const { data } = await postUserForm({
           variables: {
-            shopify_domain: shopOrigin,
+            shopify_domain: shopStore.shopOrigin,
             form: { ...userInput, shopClassification: `${selected.join(', ')}, ${selectedOtherTextFiledValue}` },
           },
         });

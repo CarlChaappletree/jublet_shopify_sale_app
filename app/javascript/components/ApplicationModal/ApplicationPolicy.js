@@ -31,11 +31,11 @@ const ApplicationPolicy = ({ modalClose }) => {
 
   const ReactContext = useContext(ReactContextStore);
 
-  const { shopOrigin, shopLegalAgreementStore } = ReactContext;
+  const { shopStore, shopLegalAgreementStore } = ReactContext;
 
   const handleSubmit = async () => {
     try {
-      const { data } = await updateShop({ variables: { shopify_domain: shopOrigin } });
+      const { data } = await updateShop({ variables: { shopify_domain: shopStore.shopOrigin } });
       if (data.updateShop.shop) {
         modalClose();
         shopLegalAgreementStore.setShopLegalAgreement(true);
