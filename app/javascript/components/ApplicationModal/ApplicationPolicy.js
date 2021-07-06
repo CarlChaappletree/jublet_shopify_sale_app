@@ -30,7 +30,7 @@ const ListContent = styled.div`
   margin-top: 10px;
 `;
 
-const ApplicationPolicy = ({ modalClose }) => {
+const ApplicationPolicy = () => {
   const [updateShop, { loading, error }] = useMutation(UPDATE_SHOP_QUERY);
 
   const ReactContext = useContext(ReactContextStore);
@@ -39,10 +39,7 @@ const ApplicationPolicy = ({ modalClose }) => {
 
   const handleSubmit = async () => {
     try {
-      const { data } = await updateShop({ variables: { shopify_domain: shopStore.shopOrigin } });
-      if (data.updateShop.shop) {
-        modalClose();
-      }
+      updateShop({ variables: { shopify_domain: shopStore.shopOrigin } });
     } catch (e) {
       console.error({ e });
     }

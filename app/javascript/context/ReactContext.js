@@ -28,7 +28,6 @@ export default function ReactContext({ children }) {
     apiKey: getShopifyData.apiKey,
     shopOrigin: getShopifyData.shopOrigin,
   };
-  console.log('hiihi---------', loading);
   let store = {
     shopStore: {
       shopOrigin: configAppBridge.shopOrigin,
@@ -43,6 +42,7 @@ export default function ReactContext({ children }) {
       applicationViewTypes,
     },
   };
+
   if (loading) {
     return (
       <Frame>
