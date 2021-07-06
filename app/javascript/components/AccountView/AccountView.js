@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ReactContextStore } from '../../context/ReactContext';
-import Landing from './Landing';
-import Account from './Account';
+import Landing from './partial/Landing';
+import Account from './partial/Account';
 
 export default function AccountView() {
   const ReactContext = useContext(ReactContextStore);

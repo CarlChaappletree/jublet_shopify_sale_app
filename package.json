@@ -12,6 +12,7 @@
     "@shopify/app-bridge-react": "1.30.0",
     "@shopify/app-bridge-utils": "^1.26.2",
     "@shopify/polaris": "^5.15.1",
+    "@shopify/polaris-icons": "^4.6.2",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "graphql": "^15.3.0",
     "prop-types": "^15.7.2",

@@ -1,6 +1,6 @@
 import React from 'react';
 import { EmptyState, Page } from '@shopify/polaris';
-import ApplicationModal from '../ApplicationModal/ApplicationModal';
+import ApplicationModal from '../../ApplicationModal/ApplicationModal';
 
 const Landing = () => {
   return (
