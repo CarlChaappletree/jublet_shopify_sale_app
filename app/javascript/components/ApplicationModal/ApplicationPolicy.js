@@ -12,6 +12,10 @@ const UPDATE_SHOP_QUERY = gql`
     updateShop(input: { shopifyDomain: $shopify_domain }) {
       shop {
         id
+        shopifyDomain
+        legalAgreement
+        connected
+        approved
       }
       errors
     }
@@ -31,20 +35,18 @@ const ApplicationPolicy = ({ modalClose }) => {
 
   const ReactContext = useContext(ReactContextStore);
 
-  const { shopStore, shopLegalAgreementStore } = ReactContext;
+  const { shopStore } = ReactContext;
 
   const handleSubmit = async () => {
     try {
       const { data } = await updateShop({ variables: { shopify_domain: shopStore.shopOrigin } });
       if (data.updateShop.shop) {
         modalClose();
-        shopLegalAgreementStore.setShopLegalAgreement(true);
       }
     } catch (e) {
       console.error({ e });
     }
   };
-
   return (
     <>
       {error && <Banner title={`Something went wrong. Please try it again.`} status="warning"></Banner>}

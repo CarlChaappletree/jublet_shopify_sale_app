@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext } from 'react';
+import React, { useState, useCallback, useContext, useEffect } from 'react';
 import { Button, Modal } from '@shopify/polaris';
 import ApplicationForm from './ApplicationForm';
 import ApplicationInfo from './ApplicationInfo';
@@ -19,6 +19,14 @@ const ApplicationModal = () => {
     SET_FORM_VIEW: <ApplicationForm />,
     SET_POLICY_VIEW: <ApplicationPolicy modalClose={toggleActive} />,
   };
+  useEffect(() => {
+    // To clean up subscription
+    return () => {
+      applicationViewStore.applicationViewDispatch({
+        type: applicationViewStore.applicationViewTypes.SET_INTRO_VIEW,
+      });
+    };
+  }, []);
 
   return (
     <Modal

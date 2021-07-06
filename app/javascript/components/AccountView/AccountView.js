@@ -5,6 +5,7 @@ import Account from './Account';
 
 export default function AccountView() {
   const ReactContext = useContext(ReactContextStore);
-  const { shopLegalAgreementStore } = ReactContext;
-  return <>{shopLegalAgreementStore.shopLegalAgreement ? <Account /> : <Landing />}</>;
+  const { shopStore } = ReactContext;
+
+  return <>{shopStore.shopLegalAgreement ? <Account /> : <Landing />}</>;
 }

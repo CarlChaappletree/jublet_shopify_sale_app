@@ -1,38 +1,41 @@
 /* eslint-disable react/prop-types */
-import React, { createContext, useReducer, useState } from 'react';
+import React, { createContext, useReducer } from 'react';
 import { Provider as AppBridgeProvider } from '@shopify/app-bridge-react';
+import { useQuery } from '@apollo/client';
+import { Loading, Frame } from '@shopify/polaris';
+
 import {
   applicationViewReducer,
   applicationViewInitialState,
   applicationViewTypes,
 } from './store/applicationViewReducer';
+import { GET_SHOP } from '../operations/query/Shop';
 export const ReactContextStore = createContext();
-const getShopifyData = document.getElementById('shopify-app-init').dataset;
-const config = {
-  apiKey: getShopifyData.apiKey,
-  shopOrigin: getShopifyData.shopOrigin,
-  approved: getShopifyData.approved === 'true',
-  shopLegalAgreement: getShopifyData.shopLegalAgreement === 'true',
-  connected: getShopifyData.connected === 'true',
-};
 
 export default function ReactContext({ children }) {
   const [applicationViewState, applicationViewDispatch] = useReducer(
     applicationViewReducer,
     applicationViewInitialState
   );
-  const [shopLegalAgreement, setShopLegalAgreement] = useState(config.shopLegalAgreement);
 
+  // get data from rails
+  const getShopifyData = document.getElementById('shopify-app-init').dataset;
+
+  // get data from fetching in order to update graphql cached memories
+  const { data: queryData, loading } = useQuery(GET_SHOP, { variables: { shopify_domain: getShopifyData.shopOrigin } });
+
+  const configAppBridge = {
+    apiKey: getShopifyData.apiKey,
+    shopOrigin: getShopifyData.shopOrigin,
+  };
+  console.log('hiihi---------', loading);
   let store = {
     shopStore: {
-      shopOrigin: config.shopOrigin,
-      apiKey: config.apiKey,
-      approved: config.approved,
-      connected: config.connected,
-    },
-    shopLegalAgreementStore: {
-      shopLegalAgreement,
-      setShopLegalAgreement,
+      shopOrigin: configAppBridge.shopOrigin,
+      apiKey: configAppBridge.apiKey,
+      approved: queryData && queryData.shop.approved === 'true',
+      connected: queryData && queryData.shop.connected === 'true',
+      shopLegalAgreement: queryData && queryData.shop.legalAgreement === 'true',
     },
     applicationViewStore: {
       applicationViewDispatch,
@@ -40,9 +43,15 @@ export default function ReactContext({ children }) {
       applicationViewTypes,
     },
   };
-
+  if (loading) {
+    return (
+      <Frame>
+        <Loading />
+      </Frame>
+    );
+  }
   return (
-    <AppBridgeProvider config={config}>
+    <AppBridgeProvider config={configAppBridge}>
       <ReactContextStore.Provider value={store}>{children}</ReactContextStore.Provider>
     </AppBridgeProvider>
   );

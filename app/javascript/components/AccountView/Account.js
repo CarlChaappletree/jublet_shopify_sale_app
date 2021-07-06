@@ -1,15 +1,14 @@
 import React, { useCallback, useState, useContext } from 'react';
-import { Link, Page, Layout, Banner, SettingToggle } from '@shopify/polaris';
+import { Page, Layout, Banner, SettingToggle } from '@shopify/polaris';
 import { ReactContextStore } from '../../context/ReactContext';
 
 export default function Account() {
   const ReactContext = useContext(ReactContextStore);
   const { shopStore } = ReactContext;
-  const [connected, setConnected] = useState(shopStore.connected);
 
   const handleAction = useCallback(() => {
-    setConnected((connected) => !connected);
-  }, [connected]);
+    // shopConnectedStore.setShopConnectedState((connected) => !connected);
+  }, []);
   const disabledDetail = (
     <>
       Your connection is <strong>disabled</strong>. your products and collections are not published to{' '}
@@ -23,8 +22,8 @@ export default function Account() {
       <strong>Jublet</strong>.
     </>
   );
-  const buttonText = connected ? 'Disconnect' : 'Connect';
-  const details = connected ? enabledDetail : disabledDetail;
+  const buttonText = shopStore.connected ? 'Disconnect' : 'Connect';
+  const details = shopStore.connected ? enabledDetail : disabledDetail;
 
   const [bannerOpenState, setBannerOpenState] = useState(true);
   return (
@@ -66,7 +65,7 @@ export default function Account() {
               content: buttonText,
               onAction: handleAction,
             }}
-            enabled={connected}
+            enabled={shopStore.connected}
           >
             <p variation="strong">{details}</p>
           </SettingToggle>
