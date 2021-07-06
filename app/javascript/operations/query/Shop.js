@@ -7,6 +7,8 @@ export const GET_SHOP = gql`
       connected
       legalAgreement
       approved
+      rejected
+      rejectedReason
     }
   }
 `;

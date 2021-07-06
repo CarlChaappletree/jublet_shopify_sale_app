@@ -2,7 +2,7 @@
 import React, { createContext, useReducer } from 'react';
 import { Provider as AppBridgeProvider } from '@shopify/app-bridge-react';
 import { useQuery } from '@apollo/client';
-import { Loading, Frame } from '@shopify/polaris';
+import { Loading, Frame, Banner } from '@shopify/polaris';
 
 import {
   applicationViewReducer,
@@ -22,19 +22,26 @@ export default function ReactContext({ children }) {
   const getShopifyData = document.getElementById('shopify-app-init').dataset;
 
   // get data from fetching in order to update graphql cached memories
-  const { data: queryData, loading } = useQuery(GET_SHOP, { variables: { shopify_domain: getShopifyData.shopOrigin } });
+  const {
+    data: queryData,
+    loading,
+    error,
+  } = useQuery(GET_SHOP, { variables: { shopify_domain: getShopifyData.shopOrigin } });
 
   const configAppBridge = {
     apiKey: getShopifyData.apiKey,
     shopOrigin: getShopifyData.shopOrigin,
   };
+
   let store = {
     shopStore: {
       shopOrigin: configAppBridge.shopOrigin,
       apiKey: configAppBridge.apiKey,
-      approved: queryData && queryData.shop.approved === 'true',
-      connected: queryData && queryData.shop.connected === 'true',
-      shopLegalAgreement: queryData && queryData.shop.legalAgreement === 'true',
+      approved: queryData && queryData.shop.approved,
+      connected: queryData && queryData.shop.connected,
+      shopLegalAgreement: queryData && queryData.shop.legalAgreement,
+      rejected: queryData && queryData.shop.rejected,
+      rejectedReason: queryData && queryData.shop.rejectedReason,
     },
     applicationViewStore: {
       applicationViewDispatch,
@@ -51,8 +58,11 @@ export default function ReactContext({ children }) {
     );
   }
   return (
-    <AppBridgeProvider config={configAppBridge}>
-      <ReactContextStore.Provider value={store}>{children}</ReactContextStore.Provider>
-    </AppBridgeProvider>
+    <>
+      {error && <Banner title={`Something went wrong. Pleas contact us.`} status="warning"></Banner>}
+      <AppBridgeProvider config={configAppBridge}>
+        <ReactContextStore.Provider value={store}>{children}</ReactContextStore.Provider>
+      </AppBridgeProvider>
+    </>
   );
 }

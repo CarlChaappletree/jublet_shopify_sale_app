@@ -13,7 +13,6 @@ export default function Account() {
     <>
       Your connection is <strong>disabled</strong>. your products and collections are not published to{' '}
       <strong>Jublet</strong>. To display your products, please click the connect button.
-      {/* <Link url="Example App">terms and conditions</Link> */}
     </>
   );
   const enabledDetail = (
@@ -23,16 +22,19 @@ export default function Account() {
     </>
   );
   const buttonText = shopStore.connected ? 'Disconnect' : 'Connect';
-  const details = shopStore.connected ? enabledDetail : disabledDetail;
-
+  const storeConnectionDetail = shopStore.connected ? enabledDetail : disabledDetail;
+  const legalAgreementDetail = shopStore.shopLegalAgreement
+    ? `You have accepted Jublet's terms and conditions.`
+    : `You have not accepted Jublet's terms of conditions. Please accept the terms and conditions`;
   const [bannerOpenState, setBannerOpenState] = useState(true);
+  console.log('shopStore.rejected', shopStore.rejected);
   return (
     <Page subtitle="Let's get you set up so you can sell your products on Jublet" title="Welcome to Jublet">
       <Layout>
         {bannerOpenState ? (
           <>
             <Layout.Section>
-              {shopStore.approved ? (
+              {shopStore.approved && !shopStore.rejected ? (
                 <Banner
                   title="You've been approved to sell on Jublet"
                   status="success"
@@ -44,13 +46,19 @@ export default function Account() {
                 </Banner>
               ) : (
                 <Banner
-                  title="Jublet is reviewing your store"
-                  status="info"
+                  title={
+                    shopStore.rejected ? `Sorry, Jublet rejects your application.` : `Jublet is reviewing your store`
+                  }
+                  status={shopStore.rejected ? `critical` : `info`}
                   onDismiss={() => {
                     setBannerOpenState(!bannerOpenState);
                   }}
                 >
-                  <p>It usually takes about 48 hours to hear back.</p>
+                  <p>
+                    {shopStore.rejected
+                      ? `Please contact us if you have any issue with the application. Reject reason: ${shopStore.rejectedReason}. Please uninstall this app.`
+                      : `It usually takes about 48 hours to hear back.`}
+                  </p>
                 </Banner>
               )}
             </Layout.Section>
@@ -67,7 +75,15 @@ export default function Account() {
             }}
             enabled={shopStore.connected}
           >
-            <p variation="strong">{details}</p>
+            <p variation="strong">{storeConnectionDetail}</p>
+          </SettingToggle>
+        </Layout.AnnotatedSection>
+        <Layout.AnnotatedSection
+          title="Terms and conditions"
+          description="View Jublet's terms and conditions here at anytime."
+        >
+          <SettingToggle>
+            <p variation="strong">{legalAgreementDetail}</p>
           </SettingToggle>
         </Layout.AnnotatedSection>
       </Layout>
