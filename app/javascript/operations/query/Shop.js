@@ -9,6 +9,7 @@ export const GET_SHOP = gql`
       approved
       rejected
       rejectedReason
+      bankDetailUpdatedAt
     }
   }
 `;

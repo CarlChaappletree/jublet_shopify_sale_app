@@ -104,7 +104,7 @@ export default function Account() {
                   <div style={{ margin: 'auto 14px auto 4px' }}>
                     <Icon source={BankMajor} color="base" />
                   </div>
-                  {shopStore.approved ? (
+                  {shopStore.approved && !shopStore.rejected ? (
                     <>
                       <p style={{ margin: 'auto 0' }}>Your bank account is connected</p>
                       <div style={{ marginLeft: 'auto' }}>
