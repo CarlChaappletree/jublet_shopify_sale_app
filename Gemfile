@@ -60,6 +60,8 @@ group :test do
   gem 'faker'
   gem 'shoulda-matchers', '~> 4.0'
   gem 'rspec-graphql_matchers'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -72,3 +74,5 @@ gem 'mimemagic', github: 'mimemagicrb/mimemagic', ref: '01f92d86d15d85cfd0f20dab
 
 gem "sidekiq"
 gem "sinatra"
+
+gem 'stripe'
