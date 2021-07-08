@@ -1,13 +1,12 @@
 module Mutations
   class UpdateApplication < BaseMutation
-    argument :shopify_domain, String, required: true
     argument :form, Types::ApplicationFormAttributes, required: true
 
     field :shop, Types::ShopType, null: true
     field :errors, [String], null: false
 
-    def resolve(shopify_domain:, form:)
-      shop = Shop.find_by!(shopify_domain: shopify_domain)
+    def resolve(form:)
+      shop = Shop.find_by!(shopify_domain: ShopifyAPI::Shop.current.domain)
       if shop.update!(application_form: form)
         ShopApplicationNotifierMailer.send_application_email(form.to_h).deliver_later
         {
@@ -21,9 +20,9 @@ module Mutations
         }
       end
     rescue ActiveRecord::RecordInvalid => e
-      GraphQL::ExecutionError.new("#{e}")
+      GraphQL::ExecutionError.new(e.to_s)
     rescue => e
-      GraphQL::ExecutionError.new("#{e}")
+      GraphQL::ExecutionError.new(e.to_s)
     end
   end
 end

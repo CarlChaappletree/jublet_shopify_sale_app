@@ -1,24 +1,38 @@
 require 'rails_helper'
 
 module Mutations
-  RSpec.describe UpdateShop, type: :request do
-    describe 'Mutations::UpdateShop' do
+  RSpec.describe UpdateShop, type: :request, vcr: false do
+    describe '.resolve' do
       let(:shop) { create(:shop) }
-      it 'sets legal_agreement, connected and connected_at with valid values' do
-        migration = Mutations::UpdateShop.new(object: nil, context: {}, field: {})
-        result = migration.resolve(shopify_domain: shop.shopify_domain)
-        expect(result[:shop][:shopify_domain]).to eq(shop.shopify_domain)
-        expect(result[:shop][:shopify_token]).to eq(shop.shopify_token)
-        expect(result[:shop][:legal_agreement]).to eq(true)
-        expect(result[:shop][:connected]).to eq(true)
-        expect(result[:shop][:connected_at]).not_to eq(nil)
-        expect(result[:shop][:errors]).to eq(nil)
+      before do
+        controller_test_setup(shop)
+      end
+      it 'Updates and returns shop for provided shopify domain' do
+        post '/graphql', params: { query: query }
+        expect(JSON.parse(response.body)['data']['updateShop']['shop']).to include(
+          {
+            'id' => shop.id.to_s,
+            'connected' => true,
+            'legalAgreement' => true,
+            'approved' => false
+          }
+        )
       end
 
-      it 'handles exceptions' do
-        migration = Mutations::UpdateShop.new(object: nil, context: {}, field: {})
-        result = migration.resolve(shopify_domain: 'None exist shop')
-        expect(result.class).to eq(GraphQL::ExecutionError)
+      def query
+        <<~GQL
+          mutation {
+            updateShop(input: {}) {
+              shop {
+                id
+                connected
+                legalAgreement
+                approved
+              }
+              errors
+            }
+          }
+        GQL
       end
     end
   end

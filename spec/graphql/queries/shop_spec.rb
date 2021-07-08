@@ -1,13 +1,12 @@
 require 'rails_helper'
 
 module Queries
-  RSpec.describe Shop, type: :request do
+  RSpec.describe Shop, type: :request, vcr: false do
     describe '.resolve' do
       let(:shop) { create(:shop) }
       it 'returns shop for provided shopify domain' do
-        shop
-        post '/graphql', params: { query: query(shopify_domain: shop.shopify_domain) }
-
+        controller_test_setup(shop)
+        post '/graphql', params: { query: query }
         expect(JSON.parse(response.body)['data']['shop']).to include(
           {
             'connected' => false,
@@ -19,12 +18,10 @@ module Queries
         )
       end
 
-      def query(shopify_domain:)
+      def query
         <<~GQL
           query {
-            shop(
-              shopifyDomain: "#{shopify_domain}"
-            ) {
+            shop {
                 id
                 connected
                 legalAgreement

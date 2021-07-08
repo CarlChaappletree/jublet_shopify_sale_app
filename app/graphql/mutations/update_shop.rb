@@ -1,13 +1,10 @@
 module Mutations
   class UpdateShop < BaseMutation
-    argument :shopify_domain, String, required: true
-
-    # field :token, String, null: true
     field :shop, Types::ShopType, null: true
     field :errors, [String], null: false
 
-    def resolve(shopify_domain:)
-      shop = Shop.find_by(shopify_domain: shopify_domain)
+    def resolve
+      shop = Shop.find_by(shopify_domain: ShopifyAPI::Shop.current.domain)
       if shop.update(legal_agreement: true, connected: true, connected_at: Time.current)
         {
             shop: shop,
@@ -20,9 +17,9 @@ module Mutations
         }
       end
     rescue ActiveRecord::RecordInvalid => e
-      GraphQL::ExecutionError.new("#{e}")
+      GraphQL::ExecutionError.new(e.to_s)
     rescue => e
-      GraphQL::ExecutionError.new("#{e}")
+      GraphQL::ExecutionError.new(e.to_s)
     end
   end
 end

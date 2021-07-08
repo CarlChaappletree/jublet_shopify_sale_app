@@ -9,7 +9,7 @@ import {
   applicationViewInitialState,
   applicationViewTypes,
 } from './store/applicationViewReducer';
-import { GET_SHOP } from '../operations/query/Shop';
+import { SHOP_QUERY } from '../operations/query/shop';
 export const ReactContextStore = createContext();
 
 export default function ReactContext({ children }) {
@@ -21,12 +21,7 @@ export default function ReactContext({ children }) {
   // get data from rails
   const getShopifyData = document.getElementById('shopify-app-init').dataset;
 
-  // get data from fetching in order to update graphql cached memories
-  const {
-    data: queryData,
-    loading,
-    error,
-  } = useQuery(GET_SHOP, { variables: { shopify_domain: getShopifyData.shopOrigin } });
+  const { data: queryData, loading, error } = useQuery(SHOP_QUERY);
 
   const configAppBridge = {
     apiKey: getShopifyData.apiKey,
@@ -60,7 +55,9 @@ export default function ReactContext({ children }) {
   }
   return (
     <>
-      {error && <Banner title={`Something went wrong. Pleas contact us.`} status="warning"></Banner>}
+      {error && (
+        <Banner title={`Something went wrong. Pleas contact us. Error message: ${error}`} status="warning"></Banner>
+      )}
       <AppBridgeProvider config={configAppBridge}>
         <ReactContextStore.Provider value={store}>{children}</ReactContextStore.Provider>
       </AppBridgeProvider>

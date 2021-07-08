@@ -11,22 +11,12 @@ import {
   InlineError,
   Banner,
 } from '@shopify/polaris';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { ReactContextStore } from '../../context/ReactContext';
-
-const UPDATE_APPLICATION_QUERY = gql`
-  mutation UpdateApplication($shopify_domain: String!, $form: ApplicationFormAttributes!) {
-    updateApplication(input: { shopifyDomain: $shopify_domain, form: $form }) {
-      shop {
-        id
-      }
-      errors
-    }
-  }
-`;
+import { UPDATE_APPLICATION_MUTATION } from '../../operations/mutation/shop';
 
 const ApplicationForm = () => {
-  const [postUserForm, { loading, error }] = useMutation(UPDATE_APPLICATION_QUERY);
+  const [postUserForm, { loading, error }] = useMutation(UPDATE_APPLICATION_MUTATION);
   const [selected, setSelected] = useState([]);
   const [selectedOtherTextFiledValue, setSelectedOtherTextFiledValue] = useState('');
 

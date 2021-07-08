@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
-export const GET_SHOP = gql`
-  query GetShop($shopify_domain: String!) {
-    shop(shopifyDomain: $shopify_domain) {
+export const SHOP_QUERY = gql`
+  query GetShop {
+    shop {
       id
       connected
       legalAgreement

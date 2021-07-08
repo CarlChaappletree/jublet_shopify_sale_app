@@ -4,23 +4,9 @@ import React, { useContext } from 'react';
 import { Page } from '@shopify/polaris';
 import { Layout, Card, Scrollable, Loading, Frame, Banner } from '@shopify/polaris';
 import styled from 'styled-components';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { ReactContextStore } from '../../context/ReactContext';
-
-const UPDATE_SHOP_QUERY = gql`
-  mutation UpdateShop($shopify_domain: String!) {
-    updateShop(input: { shopifyDomain: $shopify_domain }) {
-      shop {
-        id
-        shopifyDomain
-        legalAgreement
-        connected
-        approved
-      }
-      errors
-    }
-  }
-`;
+import { UPDATE_SHOP_MUTATION } from '../../operations/mutation/shop';
 
 const ListTitle = styled.div`
   padding: 13px 0;
@@ -31,7 +17,7 @@ const ListContent = styled.div`
 `;
 
 const ApplicationPolicy = () => {
-  const [updateShop, { loading, error }] = useMutation(UPDATE_SHOP_QUERY);
+  const [updateShop, { loading, error }] = useMutation(UPDATE_SHOP_MUTATION);
 
   const ReactContext = useContext(ReactContextStore);
 

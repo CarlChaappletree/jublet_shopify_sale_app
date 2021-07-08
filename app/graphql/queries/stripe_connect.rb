@@ -7,20 +7,24 @@ module Queries
     def resolve
       Stripe.api_key = ENV['STRIPE_API_KEY']
       account = Stripe::Account.create({
-        type: 'custom',
-        business_type: 'individual',
-        requested_capabilities: %w[card_payments transfers]
+        type: 'express',
+        capabilities: {
+          card_payments: {
+            requested: true,
+          },
+          transfers: {
+            requested: true,
+          },
+        },
       })
-      account_links = Stripe::AccountLink.create({
+      Stripe::AccountLink.create({
         account: account.id,
         refresh_url: 'https://example.com/reauth',
         return_url: 'https://example.com/return',
-        type: 'custom_account_verification',
-        collect: 'eventually_due'
+        type: 'account_onboarding'
       })
-      account_links
-      rescue => e
-        GraphQL::ExecutionError.new(e.to_s)
+    rescue => e
+      GraphQL::ExecutionError.new(e.to_s)
     end
   end
 end
