@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Button, Modal, TextContainer, Link, Stack, Banner } from '@shopify/polaris';
 import { useMutation } from '@apollo/client';
-import { UPDATE_STRIPE_CONNECT } from '../../../operations/mutation/shop';
+import { UPDATE_STRIPE_CONNECT } from '../../../operations/mutation';
 
 const BankAccountModal = () => {
   const [active, setActive] = useState(false);

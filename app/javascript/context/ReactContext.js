@@ -9,7 +9,7 @@ import {
   applicationViewInitialState,
   applicationViewTypes,
 } from './store/applicationViewReducer';
-import { SHOP_QUERY } from '../operations/query/shop';
+import { SHOP_QUERY } from '../operations/query';
 export const ReactContextStore = createContext();
 
 export default function ReactContext({ children }) {
@@ -38,6 +38,7 @@ export default function ReactContext({ children }) {
       rejected: queryData && queryData.shop.rejected,
       rejectedReason: queryData && queryData.shop.rejectedReason,
       bankDetailUpdatedAt: queryData && queryData.shop.bankDetailUpdatedAt,
+      stripeAccountId: queryData && queryData.shop.stripeAccountId,
     },
     applicationViewStore: {
       applicationViewDispatch,

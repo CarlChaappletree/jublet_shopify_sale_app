@@ -119,7 +119,10 @@ export default function Account() {
                   </div>
                   {shopStore.approved && !shopStore.rejected ? (
                     <>
-                      <p style={{ margin: 'auto 0' }}>Your bank account is connected</p>
+                      <p style={{ margin: 'auto 0' }}>
+                        {/* webhook should come here */}
+                        {true ? 'Your bank account is connected' : 'Complete connecting your bank detail'}
+                      </p>
                       <div style={{ marginLeft: 'auto' }}>
                         <BankAccountModal />
                       </div>

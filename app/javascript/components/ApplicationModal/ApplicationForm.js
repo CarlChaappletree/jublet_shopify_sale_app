@@ -13,7 +13,7 @@ import {
 } from '@shopify/polaris';
 import { useMutation } from '@apollo/client';
 import { ReactContextStore } from '../../context/ReactContext';
-import { UPDATE_APPLICATION_MUTATION } from '../../operations/mutation/shop';
+import { UPDATE_APPLICATION_MUTATION } from '../../operations/mutation';
 
 const ApplicationForm = () => {
   const [postUserForm, { loading, error }] = useMutation(UPDATE_APPLICATION_MUTATION);
@@ -108,7 +108,7 @@ const ApplicationForm = () => {
     <>
       {error && <Banner title={`Something went wrong. Please try it again.`} status="warning"></Banner>}
       {loading && (
-        <div style={{ height: '100px' }}>
+        <div>
           <Frame>
             <Loading />
           </Frame>

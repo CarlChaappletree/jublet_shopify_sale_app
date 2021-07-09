@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 2021_07_07_070445) do
     t.datetime "approved_at"
     t.boolean "rejected", default: false, null: false
     t.string "rejected_reason"
-    t.string "stripe_account_id", default: "", null: false
+    t.string "stripe_account_id"
     t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
   end
 

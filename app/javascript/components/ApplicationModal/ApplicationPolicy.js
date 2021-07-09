@@ -6,7 +6,7 @@ import { Layout, Card, Scrollable, Loading, Frame, Banner } from '@shopify/polar
 import styled from 'styled-components';
 import { useMutation } from '@apollo/client';
 import { ReactContextStore } from '../../context/ReactContext';
-import { UPDATE_SHOP_MUTATION } from '../../operations/mutation/shop';
+import { UPDATE_SHOP_MUTATION } from '../../operations/mutation';
 
 const ListTitle = styled.div`
   padding: 13px 0;
@@ -34,7 +34,7 @@ const ApplicationPolicy = () => {
     <>
       {error && <Banner title={`Something went wrong. Please try it again.`} status="warning"></Banner>}
       {loading && (
-        <div style={{ height: '100px' }}>
+        <div>
           <Frame>
             <Loading />
           </Frame>
