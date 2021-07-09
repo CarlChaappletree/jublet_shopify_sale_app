@@ -1,8 +1,9 @@
 import React, { useCallback, useState, useContext } from 'react';
-import { Page, Layout, Banner, SettingToggle, Card, Link, FooterHelp, Icon, Button, TextStyle } from '@shopify/polaris';
+import { Page, Layout, Banner, SettingToggle, Card, Link, FooterHelp, Icon } from '@shopify/polaris';
 import { ReactContextStore } from '../../../context/ReactContext';
 import BankAccountModal from './BankAccountModal';
 import { BankMajor } from '@shopify/polaris-icons';
+
 export default function Account() {
   const ReactContext = useContext(ReactContextStore);
   const { shopStore } = ReactContext;
@@ -31,6 +32,7 @@ export default function Account() {
     ? `You have accepted Jublet's terms and conditions.`
     : `You have not accepted Jublet's terms of conditions. Please accept the terms and conditions`;
   const [bannerOpenState, setBannerOpenState] = useState(true);
+  const [bankDetailBannerOpenState, setBankDetailBannerOpenState] = useState(true);
 
   return (
     <>
@@ -66,6 +68,17 @@ export default function Account() {
                     </p>
                   </Banner>
                 )}
+                {bankDetailBannerOpenState ? (
+                  <Banner
+                    title={`You haven't updated your bank detail`}
+                    status="warning"
+                    onDismiss={() => {
+                      setBankDetailBannerOpenState(!bankDetailBannerOpenState);
+                    }}
+                  >
+                    <p> Please update them at the fee and payment section</p>
+                  </Banner>
+                ) : null}
               </Layout.Section>
             </>
           ) : null}

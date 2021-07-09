@@ -23,13 +23,14 @@ ActiveRecord::Schema.define(version: 2021_07_07_070445) do
     t.string "access_scopes"
     t.datetime "bank_detail_updated_at"
     t.jsonb "application_form", default: "{}", null: false
-    t.boolean "legal_agreement", default: false
-    t.boolean "connected", default: false
+    t.boolean "legal_agreement", default: false, null: false
+    t.boolean "connected", default: false, null: false
     t.datetime "connected_at"
-    t.boolean "approved", default: false
+    t.boolean "approved", default: false, null: false
     t.datetime "approved_at"
-    t.boolean "rejected", default: false
+    t.boolean "rejected", default: false, null: false
     t.string "rejected_reason"
+    t.string "stripe_account_id", default: "", null: false
     t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
   end
 

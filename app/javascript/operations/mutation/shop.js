@@ -25,3 +25,11 @@ export const UPDATE_APPLICATION_MUTATION = gql`
     }
   }
 `;
+
+export const UPDATE_STRIPE_CONNECT = gql`
+  mutation UpdateStripeConnect {
+    updateStripeConnect(input: {}) {
+      connectLink
+    }
+  }
+`;
