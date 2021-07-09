@@ -5,9 +5,8 @@ module Mutations
     field :connect_link, String, null: false
 
     def resolve
-      Stripe.api_key = ENV['STRIPE_API_KEY']
       begin
-        shop = Shop.find_by(shopify_domain: ShopifyAPI::Shop.current.domain)
+        shop = Shop.find_by!(shopify_domain: ShopifyAPI::Shop.current.domain)
         if shop.stripe_account_id.blank?
           account = Stripe::Account.create({
                       type: 'express',
