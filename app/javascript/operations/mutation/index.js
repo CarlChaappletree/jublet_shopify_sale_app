@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const UPDATE_SHOP_MUTATION = gql`
-  mutation UpdateShop {
-    updateShop(input: {}) {
+  mutation UpdateShop($legalAgreement: Boolean!, $connected: Boolean!) {
+    updateShop(input: { legalAgreement: $legalAgreement, connected: $connected }) {
       shop {
         id
         shopifyDomain
@@ -17,9 +17,13 @@ export const UPDATE_SHOP_MUTATION = gql`
 
 export const UPDATE_APPLICATION_MUTATION = gql`
   mutation UpdateApplication($form: ApplicationFormAttributes!) {
-    updateApplication(input: { form: $form }) {
+    updateShop(input: { applicationForm: $form }) {
       shop {
         id
+        shopifyDomain
+        legalAgreement
+        connected
+        approved
       }
       errors
     }

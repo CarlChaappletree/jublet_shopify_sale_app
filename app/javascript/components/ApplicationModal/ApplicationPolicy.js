@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/no-unescaped-entities */
-import React, { useContext } from 'react';
+import React from 'react';
 import { Page } from '@shopify/polaris';
 import { Layout, Card, Scrollable, Loading, Frame, Banner } from '@shopify/polaris';
 import styled from 'styled-components';
 import { useMutation } from '@apollo/client';
-import { ReactContextStore } from '../../context/ReactContext';
 import { UPDATE_SHOP_MUTATION } from '../../operations/mutation';
 
 const ListTitle = styled.div`
@@ -19,13 +18,9 @@ const ListContent = styled.div`
 const ApplicationPolicy = () => {
   const [updateShop, { loading, error }] = useMutation(UPDATE_SHOP_MUTATION);
 
-  const ReactContext = useContext(ReactContextStore);
-
-  const { shopStore } = ReactContext;
-
   const handleSubmit = async () => {
     try {
-      updateShop({ variables: { shopify_domain: shopStore.shopOrigin } });
+      updateShop({ variables: { legalAgreement: true, connected: true } });
     } catch (e) {
       console.error({ e });
     }
