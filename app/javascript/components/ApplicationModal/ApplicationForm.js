@@ -75,7 +75,6 @@ const ApplicationForm = () => {
             form: { ...userInput, shopClassification: `${selected.join(', ')}, ${selectedOtherTextFiledValue}` },
           },
         });
-        console.log('data', data);
         if (data.updateShop.shop) {
           applicationViewStore.applicationViewDispatch({
             type: applicationViewStore.applicationViewTypes.SET_POLICY_VIEW,

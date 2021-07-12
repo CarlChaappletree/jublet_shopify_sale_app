@@ -10,5 +10,6 @@ class AddColumnsToShop < ActiveRecord::Migration[6.0]
     add_column :shops, :rejected, :boolean, null: false, default: false
     add_column :shops, :rejected_reason, :string
     add_column :shops, :stripe_account_id, :string
+    add_column :shops, :stripe_account_status, :string
   end
 end

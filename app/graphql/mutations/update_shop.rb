@@ -3,7 +3,8 @@ module Mutations
     argument :application_form, Types::ApplicationFormAttributes, required: false
     argument :legal_agreement, Boolean, required: false
     argument :connected, Boolean, required: false
-    argument :connected_at, String, required: false
+    # TODO: Add update time
+    # argument :connected_at, String, required: false
 
     field :shop, Types::ShopType, null: true
     field :errors, [String], null: false

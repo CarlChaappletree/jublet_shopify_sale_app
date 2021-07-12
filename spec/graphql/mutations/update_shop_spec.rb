@@ -18,7 +18,7 @@ module Mutations
       before do
         controller_test_setup(shop)
       end
-      it 'Updates and returns shop for provided shopify domain' do
+      it 'Updates shop' do
         post '/graphql', params: { query: query }
         expect(JSON.parse(response.body)['data']['updateShop']['shop']).to include(
           {
@@ -30,7 +30,7 @@ module Mutations
         )
       end
 
-      it 'update shop form and returns shop for provided shopify domain' do
+      it 'update shop with the application form' do
         post '/graphql', params: { query: query_with_form(form_arg: form) }
         expect(JSON.parse(response.body)['data']['updateShop']['shop']).to include(
           {
