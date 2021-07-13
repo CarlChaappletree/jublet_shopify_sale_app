@@ -7,7 +7,6 @@ module Types
     field :approved, Boolean, null: false
     field :rejected, Boolean, null: false
     field :rejected_reason, String, null: true
-    field :bank_detail_updated_at, String, null: true
     field :stripe_account_id, String, null: true
   end
 end

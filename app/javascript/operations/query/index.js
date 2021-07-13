@@ -9,7 +9,6 @@ export const SHOP_QUERY = gql`
       approved
       rejected
       rejectedReason
-      bankDetailUpdatedAt
       stripeAccountId
     }
   }

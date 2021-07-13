@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 2021_07_07_070445) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "access_scopes"
-    t.datetime "bank_detail_updated_at"
     t.jsonb "application_form", default: "{}", null: false
     t.boolean "legal_agreement", default: false, null: false
     t.boolean "connected", default: false, null: false

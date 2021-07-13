@@ -7,6 +7,5 @@ FactoryBot.define do
     sequence(:approved) { false }
     sequence(:rejected) { false }
     sequence(:connected) { false }
-    sequence(:bank_detail_updated_at) { false }
   end
 end

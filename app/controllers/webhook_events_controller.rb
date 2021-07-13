@@ -3,9 +3,9 @@ class WebhookEventsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-  endpoint_secret = 'whsec_ISz2I7dHMMtKFGUn0skIQtX3wur8DlKJ'
-  payload = request.body.read
-  sig_header = request.env['HTTP_STRIPE_SIGNATURE']
+    endpoint_secret = 'whsec_ISz2I7dHMMtKFGUn0skIQtX3wur8DlKJ'
+    payload = request.body.read
+    sig_header = request.env['HTTP_STRIPE_SIGNATURE']
     event = nil
 
     begin
@@ -13,15 +13,12 @@ class WebhookEventsController < ApplicationController
         payload, sig_header, endpoint_secret
       )
     rescue JSON::ParserError => e
-      # Invalid payload
-      render status: 400
+      render json: params, status: 400
       return
     rescue Stripe::SignatureVerificationError => e
-      # Invalid signature
-      render status: 400
+      render json: params, status: 400
       return
     end
-    puts event['type'], 'handle  type ----------------'
 
     if event['type'] == 'account.updated'
       account = event['data']['object']

@@ -37,7 +37,6 @@ export default function ReactContext({ children }) {
       shopLegalAgreement: queryData && queryData.shop.legalAgreement,
       rejected: queryData && queryData.shop.rejected,
       rejectedReason: queryData && queryData.shop.rejectedReason,
-      bankDetailUpdatedAt: queryData && queryData.shop.bankDetailUpdatedAt,
       stripeAccountId: queryData && queryData.shop.stripeAccountId,
     },
     applicationViewStore: {
