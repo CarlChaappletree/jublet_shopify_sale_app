@@ -8,5 +8,7 @@ module Types
     field :rejected, Boolean, null: false
     field :rejected_reason, String, null: true
     field :stripe_account_id, String, null: true
+    field :has_stripe_account_completed_process, Boolean, null: true
+    field :is_stripe_account_payouts_enabled, Boolean, null: true
   end
 end

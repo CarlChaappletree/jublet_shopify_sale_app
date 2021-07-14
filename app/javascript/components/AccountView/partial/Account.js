@@ -1,10 +1,29 @@
 import React, { useCallback, useState, useContext } from 'react';
-import { Page, Layout, Banner, SettingToggle, Card, Link, FooterHelp, Icon } from '@shopify/polaris';
+import { useLazyQuery } from '@apollo/client';
+import {
+  Page,
+  Layout,
+  Banner,
+  SettingToggle,
+  Card,
+  Link,
+  FooterHelp,
+  Icon,
+  Stack,
+  Heading,
+  Button,
+  ButtonGroup,
+  TextContainer,
+} from '@shopify/polaris';
 import { ReactContextStore } from '../../../context/ReactContext';
 import BankAccountModal from './BankAccountModal';
-import { BankMajor } from '@shopify/polaris-icons';
+import { BankMajor, RefreshMajor } from '@shopify/polaris-icons';
+import { SHOP_QUERY } from '../../../operations/query';
 
 export default function Account() {
+  const [loadShop, { loading: shopQueryLoading, error }] = useLazyQuery(SHOP_QUERY, {
+    fetchPolicy: 'network-only',
+  });
   const ReactContext = useContext(ReactContextStore);
   const { shopStore } = ReactContext;
 
@@ -32,8 +51,11 @@ export default function Account() {
     ? `You have accepted Jublet's terms and conditions.`
     : `You have not accepted Jublet's terms of conditions. Please accept the terms and conditions`;
   const [bannerOpenState, setBannerOpenState] = useState(true);
-  const [bankDetailBannerOpenState, setBankDetailBannerOpenState] = useState(true);
-
+  const [paymentBannerStatus, setPaymentBannerStatus] = useState(true);
+  const handleRefresh = () => {
+    loadShop();
+    setPaymentBannerStatus(true);
+  };
   return (
     <>
       <Page subtitle="Let's get you set up so you can sell your products on Jublet" title="Welcome to Jublet">
@@ -68,17 +90,6 @@ export default function Account() {
                     </p>
                   </Banner>
                 )}
-                {bankDetailBannerOpenState ? (
-                  <Banner
-                    title={`You haven't updated your bank detail`}
-                    status="warning"
-                    onDismiss={() => {
-                      setBankDetailBannerOpenState(!bankDetailBannerOpenState);
-                    }}
-                  >
-                    <p> Please update them at the fee and payment section</p>
-                  </Banner>
-                ) : null}
               </Layout.Section>
             </>
           ) : null}
@@ -105,7 +116,16 @@ export default function Account() {
               </>
             }
           >
-            <Card title="Payment">
+            <Card
+              title={
+                <Stack>
+                  <div style={{ margin: 'auto 0' }}>
+                    <Icon source={BankMajor} color="base" />
+                  </div>
+                  <Heading style={{ margin: 'auto 0' }}>Payment</Heading>
+                </Stack>
+              }
+            >
               <Card.Section>
                 <p>{`The bank account you're receiving payments to when shoppers buy products on Jublet`}</p>
                 <Link url="https://jublet.com/legal/policy" external>
@@ -113,24 +133,63 @@ export default function Account() {
                 </Link>
               </Card.Section>
               <Card.Section>
-                <div style={{ display: 'flex' }}>
-                  <div style={{ margin: 'auto 14px auto 4px' }}>
-                    <Icon source={BankMajor} color="base" />
-                  </div>
-                  {shopStore.approved && !shopStore.rejected ? (
+                <TextContainer>
+                  {error && (
+                    <Banner title="Something went wrong" status="critical">
+                      <p>Please try again</p>
+                    </Banner>
+                  )}
+                  {shopStore.hasStripeAccountCompletedProcess && shopStore.hasStripeAccountCompletedProcess ? (
                     <>
-                      <p style={{ margin: 'auto 0' }}>
-                        {/* webhook should come here */}
-                        {true ? 'Your bank account is connected' : 'Complete connecting your bank detail'}
-                      </p>
-                      <div style={{ marginLeft: 'auto' }}>
-                        <BankAccountModal />
-                      </div>
+                      {paymentBannerStatus && (
+                        <Banner
+                          title="Your account is connected"
+                          onDismiss={() => {
+                            setPaymentBannerStatus(false);
+                          }}
+                          status="success"
+                        >
+                          <p>To edit your account information, click the edit button.</p>
+                        </Banner>
+                      )}
                     </>
                   ) : (
-                    <p>You can add your account after Jublet approves your application.</p>
+                    <>
+                      {paymentBannerStatus && (
+                        <Banner
+                          title="Your account is not connected"
+                          onDismiss={() => {
+                            setPaymentBannerStatus(false);
+                          }}
+                          status="critical"
+                        >
+                          <p>
+                            To receive payment from Jublet, you need to complete this process. <br />
+                            After updating your information, please refresh the status.
+                          </p>
+                        </Banner>
+                      )}
+                    </>
                   )}
-                </div>
+                  <Stack spacing="loose" vertical>
+                    <Stack distribution="trailing">
+                      {shopStore.approved && !shopStore.rejected ? (
+                        <ButtonGroup>
+                          <BankAccountModal />
+                          <Button
+                            icon={<Icon source={RefreshMajor} color="base" loading={shopQueryLoading} />}
+                            plain
+                            onClick={handleRefresh}
+                          >
+                            Refresh status
+                          </Button>
+                        </ButtonGroup>
+                      ) : (
+                        <p>You can add your account after Jublet approves your application.</p>
+                      )}
+                    </Stack>
+                  </Stack>
+                </TextContainer>
               </Card.Section>
             </Card>
           </Layout.AnnotatedSection>

@@ -1,15 +1,23 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useContext } from 'react';
 import { Button, Modal, TextContainer, Link, Stack, Banner } from '@shopify/polaris';
 import { useMutation } from '@apollo/client';
 import { UPDATE_STRIPE_CONNECT } from '../../../operations/mutation';
-
+import { ReactContextStore } from '../../../context/ReactContext';
 const BankAccountModal = () => {
+  const ReactContext = useContext(ReactContextStore);
+  const { shopStore } = ReactContext;
   const [active, setActive] = useState(false);
   const [stripeAccountLink, setStripeAccountLink] = useState('');
   const [updateStripeConnect, { loading: updateStripeConnectLoading, error }] = useMutation(UPDATE_STRIPE_CONNECT);
   const handleChange = useCallback(() => setActive(!active), [active]);
 
-  const activator = <Button onClick={handleChange}>Process connect account</Button>;
+  const activator = (
+    <Button onClick={handleChange}>
+      {shopStore.hasStripeAccountCompletedProcess && shopStore.hasStripeAccountCompletedProcess
+        ? 'Edit account'
+        : 'Process connect account'}
+    </Button>
+  );
 
   const handleUpdateStripeConnect = async () => {
     try {
@@ -21,14 +29,13 @@ const BankAccountModal = () => {
   };
 
   useEffect(() => {
-    console.log(active);
     if (active) handleUpdateStripeConnect();
   }, [active]);
   return (
     <Modal activator={activator} open={active} onClose={handleChange} title="Let's add your bank details to get paid">
       {error && (
         <Banner title="Something went wrong" status="critical">
-          <p>Please try again later or contact us</p>
+          <p>{`Please try again. If it still doesn't work, please contact us`}</p>
         </Banner>
       )}
       <Modal.Section>

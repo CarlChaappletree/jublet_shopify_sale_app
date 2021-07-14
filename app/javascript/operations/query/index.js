@@ -10,6 +10,8 @@ export const SHOP_QUERY = gql`
       rejected
       rejectedReason
       stripeAccountId
+      hasStripeAccountCompletedProcess
+      isStripeAccountPayoutsEnabled
     }
   }
 `;

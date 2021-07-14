@@ -38,6 +38,8 @@ export default function ReactContext({ children }) {
       rejected: queryData && queryData.shop.rejected,
       rejectedReason: queryData && queryData.shop.rejectedReason,
       stripeAccountId: queryData && queryData.shop.stripeAccountId,
+      hasStripeAccountCompletedProcess: queryData && queryData.shop.hasStripeAccountCompletedProcess,
+      isStripeAccountPayoutsEnabled: queryData && queryData.shop.isStripeAccountPayoutsEnabled,
     },
     applicationViewStore: {
       applicationViewDispatch,

@@ -28,42 +28,18 @@ class WebhookEventsController < ApplicationController
     render json: params, status: 200
   end
   def handle_account_update(account)
-    # Collect more required information, e.g.
-    puts account.to_s, 'handle account webhook ----------------'
+    shop = Shop.find_by!(stripe_account_id: account.id)
+    if shop.has_stripe_account_completed_process != account['details_submitted'] &&
+      shop.is_stripe_account_payouts_enabled != account['payouts_enabled']
+
+      shop.update!(
+        has_stripe_account_completed_process: account['details_submitted'],
+        is_stripe_account_payouts_enabled: account['payouts_enabled']
+      )
+    end
+  rescue ActiveRecord::RecordInvalid => e
+    GraphQL::ExecutionError.new(e.to_s)
+  rescue => e
+    GraphQL::ExecutionError.new(e.to_s)
   end
-
-  # def create
-  #   if !valid_signature?
-  #     render json: { message: 'Invalid signature'}, status: 400
-  #     return
-  #   end
-  #     case params[:source]
-  #     when 'stripe'
-  #       case params[:type]
-  #       when 'checkout.session.completed'
-
-  #       end
-  #     when 'github'
-  #     end
-  #     render json: params
-  # end
-  # def valid_signature?
-  #   if params[:source] == 'stripe'
-  #     begin
-  #       wh_secret = 'whsec_ah59Q9nMVsVXSEXtwpSMTLkWE9DfQVlY'
-  #       Stripe::Webhook.construct_event(
-  #         request.body.read,
-  #         request.env['HTTP_STRIPE_SIGNATURE'],
-  #         wh_secret
-  #       )
-  #     rescue JSON::ParserError => e
-  #       puts 'hiherror1', e
-  #       return false
-  #     rescue Stripe::SignatureVerificationError => e
-  #       puts 'hiherror', e
-  #       return false
-  #     end
-  #     true
-  #   end
-  # end
 end

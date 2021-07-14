@@ -30,7 +30,8 @@ ActiveRecord::Schema.define(version: 2021_07_07_070445) do
     t.boolean "rejected", default: false, null: false
     t.string "rejected_reason"
     t.string "stripe_account_id"
-    t.string "stripe_account_status"
+    t.boolean "has_stripe_account_completed_process", default: false
+    t.boolean "is_stripe_account_payouts_enabled", default: false
     t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
   end
 
