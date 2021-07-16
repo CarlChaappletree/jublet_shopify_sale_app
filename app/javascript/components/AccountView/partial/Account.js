@@ -177,8 +177,9 @@ export default function Account() {
                         <ButtonGroup>
                           <BankAccountModal />
                           <Button
-                            icon={<Icon source={RefreshMajor} color="base" loading={shopQueryLoading} />}
+                            icon={<Icon source={RefreshMajor} color="base" />}
                             plain
+                            loading={shopQueryLoading}
                             onClick={handleRefresh}
                           >
                             Refresh status
