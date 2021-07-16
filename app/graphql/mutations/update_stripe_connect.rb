@@ -25,8 +25,10 @@ module Mutations
         end
         link = Stripe::AccountLink.create({
                 account: account[:id],
-                refresh_url: 'https://example.com/reauth',
-                return_url: 'https://example.com/return',
+                # TODO: URL will be one of customer support knowledge base
+                # Ex) jublet.com/support/stripe_account_error
+                refresh_url: 'https://jublet.com/shop_application/about',
+                return_url: 'https://jublet.com/about',
                 type: 'account_onboarding'
               })
         {
