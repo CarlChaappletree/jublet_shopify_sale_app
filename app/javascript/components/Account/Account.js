@@ -15,10 +15,10 @@ import {
   ButtonGroup,
   TextContainer,
 } from '@shopify/polaris';
-import { ReactContextStore } from '../../../context/ReactContext';
-import BankAccountModal from './BankAccountModal';
+import { ReactContextStore } from '../../context/ReactContext';
+import BankAccountModal from './partial/BankAccountModal';
 import { BankMajor, RefreshMajor } from '@shopify/polaris-icons';
-import { SHOP_QUERY } from '../../../operations/query';
+import { SHOP_QUERY } from '../../operations/query';
 
 export default function Account() {
   const [loadShop, { loading: shopQueryLoading, error }] = useLazyQuery(SHOP_QUERY, {
