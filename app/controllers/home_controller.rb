@@ -7,9 +7,5 @@ class HomeController < ApplicationController
 
   def index
     @shop_origin = current_shopify_domain
-    shop = Shop.where(shopify_domain: current_shopify_domain).first
-    @shop_legal_agreement = shop&.legal_agreement || false
-    @approved = shop&.approved || false
-    @connected = shop&.connected || false
   end
 end
