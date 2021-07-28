@@ -16,6 +16,14 @@ export const SHOP_QUERY = gql`
   }
 `;
 
+export const PRODUCT_LISTING_QUERY = gql`
+  query GetShop {
+    productListing {
+      ids
+    }
+  }
+`;
+
 export const GET_STRIPE_ACCOUNT_DETAIL = gql`
   query GetStripeAccountDetail {
     getStripeAccountDetail {
