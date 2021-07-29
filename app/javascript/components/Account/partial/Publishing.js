@@ -29,7 +29,7 @@ const Publishing = () => {
           <>
             {(productListingData &&
               productListingData.productListing &&
-              productListingData.productListing.ids.length) || (
+              productListingData.productListing.ids.length) === 0 ? (
               <Banner title="Make products available to Jublet" status="info">
                 <p>
                   To start selling and marketing on Jublet, you need to set the product status as active and select the
@@ -42,7 +42,7 @@ const Publishing = () => {
                   Learn how to manage product availability.
                 </Link>
               </Banner>
-            )}
+            ) : null}
             <div style={{ margin: '20px 0' }}>
               <p>{`${
                 productListingData && productListingData.productListing && productListingData.productListing.ids.length

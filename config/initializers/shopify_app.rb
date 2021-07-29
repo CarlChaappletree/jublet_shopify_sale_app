@@ -12,7 +12,9 @@ ShopifyApp.configure do |config|
   config.shop_session_repository = 'Shop'
   config.allow_jwt_authentication = true
   config.webhooks = [
-    { topic: 'app/uninstalled', address: "#{ENV['APP_URL']}/webhooks/app_uninstalled", format: 'json' }
+    { topic: 'app/uninstalled', address: "https://8cfe3247e7b9.ngrok.io/webhooks/app_uninstalled", format: 'json' },
+    { topic: 'product_listings/add', address: "https://8cfe3247e7b9.ngrok.io/webhooks/product_listings_add", format: 'json' },
+    { topic: 'products/update', address: "https://8cfe3247e7b9.ngrok.io/webhooks/product_listings_add", format: 'json' }
   ]
 end
 
