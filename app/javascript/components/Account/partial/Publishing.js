@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import { Layout, Card, Banner, Badge, Stack, TextContainer, Spinner } from '@shopify/polaris';
+import { Layout, Card, Banner, Badge, Stack, TextContainer, Spinner, Link } from '@shopify/polaris';
 import { PRODUCT_LISTING_QUERY } from '../../../operations/query';
 
 const Publishing = () => {
@@ -27,9 +27,22 @@ const Publishing = () => {
           </div>
         ) : (
           <>
-            <Banner title="Something went wrong" status="success">
-              <p>Please try again</p>
-            </Banner>
+            {(productListingData &&
+              productListingData.productListing &&
+              productListingData.productListing.ids.length) || (
+              <Banner title="Make products available to Jublet" status="info">
+                <p>
+                  To start selling and marketing on Jublet, you need to set the product status as active and select the
+                  Jublet sales channel
+                </p>
+                <Link
+                  url="https://help.shopify.com/en/manual/products/add-update-products#make-products-available-on-your-sales-channels?locale=en-SE"
+                  external
+                >
+                  Learn how to manage product availability.
+                </Link>
+              </Banner>
+            )}
             <div style={{ margin: '20px 0' }}>
               <p>{`${
                 productListingData && productListingData.productListing && productListingData.productListing.ids.length
