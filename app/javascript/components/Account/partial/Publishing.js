@@ -55,7 +55,7 @@ const Publishing = () => {
                   progress="complete"
                   statusAndProgressLabelOverride="Status: Published. Your online store is visible."
                 >
-                  Published
+                  Approved
                 </Badge>
                 <p>155 products are available to Jublet</p>
               </Stack>
@@ -67,7 +67,7 @@ const Publishing = () => {
                   progress="incomplete"
                   statusAndProgressLabelOverride="Status: Published. Your online store is visible."
                 >
-                  Published
+                  Not approved
                 </Badge>
                 <p>155 products are available to Jublet</p>
               </Stack>

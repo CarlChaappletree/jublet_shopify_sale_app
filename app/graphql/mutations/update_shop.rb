@@ -11,6 +11,7 @@ module Mutations
 
     def resolve(**args)
       shop = Shop.find_by(shopify_domain: ShopifyAPI::Shop.current.domain)
+      ShopApplicationNotifierMailer.send_application_email(args[:application_form].to_h).deliver_later if args.key?(:application_form)
       if shop.update(**args)
         {
             shop: shop,

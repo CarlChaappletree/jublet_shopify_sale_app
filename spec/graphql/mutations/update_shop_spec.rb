@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Mutations
-  RSpec.describe UpdateShop, type: :request, vcr: false do
+  RSpec.describe UpdateShop, type: :request, vcr: false, sendgrid: false  do
     describe '.resolve' do
       let(:shop) { create(:shop) }
       let(:form) {
@@ -32,13 +32,21 @@ module Mutations
 
       it 'update shop with the application form' do
         post '/graphql', params: { query: query_with_form(form_arg: form) }
+
         expect(JSON.parse(response.body)['data']['updateShop']['shop']).to include(
           {
             'id' => shop.id.to_s,
           }
         )
       end
+      #TODO: Add test for this
+      # it "sends a confirmation email" do
+      #   expect { post '/graphql', params: { query: query_with_form(form_arg: form) } }.to change(Sidekiq::Extensions::DelayedMailer.jobs, :size).by(1)
+      # end
 
+      # it "sends an application maile" do
+      #   post '/graphql', params: { query: query_with_form(form_arg: form) }
+      # end
       def query
         <<~GQL
           mutation {

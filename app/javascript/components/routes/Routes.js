@@ -8,7 +8,7 @@ function Routes() {
   const { shopStore } = ReactContext;
   return (
     <Switch>
-      <Route path="/account" render={() => (shopStore.shopLegalAgreement ? <Account /> : <Landing />)} />
+      <Route path="/" render={() => (shopStore.shopLegalAgreement ? <Account /> : <Landing />)} />
     </Switch>
   );
 }
