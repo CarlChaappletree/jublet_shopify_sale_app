@@ -1,5 +1,5 @@
 class RegisterWebhooksForActiveShops < ApplicationJob
-  queue_as :default
+  queue_as :shopify_webhook
 
   def perform
     register_webhooks_for_active_shops
