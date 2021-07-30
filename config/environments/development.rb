@@ -65,7 +65,4 @@ Rails.application.configure do
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # https://gist.github.com/maxivak/690e6c353f65a86a4af9
   config.active_job.queue_adapter = :sidekiq
-  config.active_job.queue_name_prefix = "jublet_shopify_app_#{Rails.env}"
-  config.active_job.queue_name_delimiter = "_"
-
 end

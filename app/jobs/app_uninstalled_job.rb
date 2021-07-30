@@ -1,4 +1,6 @@
 class AppUninstalledJob < ActiveJob::Base
+  queue_as :shopify_webhook
+
   def perform(args)
     shop = Shop.find_by(shopify_domain: args[:shop_domain])
 
