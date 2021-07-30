@@ -4,7 +4,7 @@ ShopifyApp.configure do |config|
   config.secret = ENV['SHOPIFY_API_SECRET']
   config.old_secret = ""
   config.scope = 'read_products, read_product_listings, write_products, write_resource_feedbacks' # Consult this page for more scope options:
-                                 # https://help.shopify.com/en/api/getting-started/authentication/oauth/scopes
+                                                                                                  # https://help.shopify.com/en/api/getting-started/authentication/oauth/scopes
   config.reauth_on_access_scope_changes = true
   config.embedded_app = true
   config.after_authenticate_job = false
@@ -12,9 +12,8 @@ ShopifyApp.configure do |config|
   config.shop_session_repository = 'Shop'
   config.allow_jwt_authentication = true
   config.webhooks = [
-    { topic: 'app/uninstalled', address: "https://8cfe3247e7b9.ngrok.io/webhooks/app_uninstalled", format: 'json' },
-    { topic: 'product_listings/add', address: "https://8cfe3247e7b9.ngrok.io/webhooks/product_listings_add", format: 'json' },
-    { topic: 'products/update', address: "https://8cfe3247e7b9.ngrok.io/webhooks/product_listings_add", format: 'json' }
+    { topic: 'app/uninstalled', address: "https://d785b851d74a.ngrok.io/webhooks/app_uninstalled" },
+    { topic: 'product_listings/add', address: "https://d785b851d74a.ngrok.io/webhooks/product_listings_add" },
   ]
 end
 
