@@ -3,7 +3,6 @@ class Shop < ActiveRecord::Base
   include ShopifyApp::ShopSessionStorageWithScopes
 
   validates :approved_products, numericality: { greater_than: 0 }
-  validates :not_approved_products, numericality: { greater_than: 0 }
 
   def uninstall
     destroy

@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(version: 2021_08_01_131118) do
     t.boolean "has_stripe_account_completed_process", default: false
     t.boolean "is_stripe_account_payouts_enabled", default: false
     t.integer "approved_products", default: 0
-    t.integer "not_approved_products", default: 0
     t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
   end
 
