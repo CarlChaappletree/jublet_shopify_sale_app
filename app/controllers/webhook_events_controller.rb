@@ -3,7 +3,7 @@ class WebhookEventsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-    endpoint_secret = 'whsec_ISz2I7dHMMtKFGUn0skIQtX3wur8DlKJ'
+    endpoint_secret = env['STRIPE_ENDPOINT_SECRET']
     payload = request.body.read
     sig_header = request.env['HTTP_STRIPE_SIGNATURE']
     event = nil
@@ -27,6 +27,7 @@ class WebhookEventsController < ApplicationController
 
     render json: params, status: 200
   end
+
   def handle_account_update(account)
     shop = Shop.find_by!(stripe_account_id: account.id)
     if shop.has_stripe_account_completed_process != account['details_submitted'] &&

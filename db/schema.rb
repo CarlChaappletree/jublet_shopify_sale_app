@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_07_070445) do
+ActiveRecord::Schema.define(version: 2021_08_01_131118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 2021_07_07_070445) do
     t.string "stripe_account_id"
     t.boolean "has_stripe_account_completed_process", default: false
     t.boolean "is_stripe_account_payouts_enabled", default: false
+    t.integer "approved_products", default: 0
+    t.integer "not_approved_products", default: 0
     t.index ["shopify_domain"], name: "index_shops_on_shopify_domain", unique: true
   end
 
