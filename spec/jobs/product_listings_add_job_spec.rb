@@ -43,5 +43,4 @@ RSpec.describe ProductListingsAddJob, type: :job do
     expect{ ProductListingsAddJob.perform_now(shop_domain: shop.shopify_domain, webhook: data)}.to raise_error
     expect(shop.approved_products).to eq(0)
   end
-
 end

@@ -12,6 +12,7 @@ export const SHOP_QUERY = gql`
       stripeAccountId
       hasStripeAccountCompletedProcess
       isStripeAccountPayoutsEnabled
+      approvedProducts
     }
   }
 `;

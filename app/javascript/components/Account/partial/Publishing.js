@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { ReactContextStore } from '../../../context/ReactContext';
 import { useQuery } from '@apollo/client';
 import { Layout, Card, Banner, Badge, Stack, TextContainer, Spinner, Link } from '@shopify/polaris';
 import { PRODUCT_LISTING_QUERY } from '../../../operations/query';
 
 const Publishing = () => {
+  const ReactContext = useContext(ReactContextStore);
+  const { shopStore } = ReactContext;
+
   const {
     data: productListingData,
     loading: productListingLoading,
@@ -44,9 +48,7 @@ const Publishing = () => {
               </Banner>
             ) : null}
             <div style={{ margin: '20px 0' }}>
-              <p>{`${
-                productListingData && productListingData.productListing && productListingData.productListing.ids.length
-              } products are available to Jublet`}</p>
+              <p>{`${shopStore.approvedProducts} products are available to Jublet`}</p>
             </div>
             <div style={{ margin: '20px 0' }}>
               <Stack spacing="loose">
