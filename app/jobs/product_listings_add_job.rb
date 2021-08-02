@@ -9,13 +9,14 @@ class ProductListingsAddJob < ActiveJob::Base
       return
     end
     shop.with_shopify_session do
-      product = ShopifyAPI::Product.find(webhook.dig('webhook', 'product_listing', 'product_id'))
-      if product.metafields.any?
-        # if valid increment approved_products
-      else
-        # mark as product not_approved and save
-      end
+      check_metafields(webhook)
     end
+  end
 
+  private
+
+  def check_metafields(webhook)
+    product = ShopifyAPI::Product.find(webhook.dig('webhook', 'product_listing', 'product_id'))
+    shop.increment_with_sql!('approved_products', 1) if product.metafields.any?
   end
 end

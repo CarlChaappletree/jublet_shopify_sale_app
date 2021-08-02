@@ -2,8 +2,6 @@
 class Shop < ActiveRecord::Base
   include ShopifyApp::ShopSessionStorageWithScopes
 
-  validates :approved_products, numericality: { greater_than: 0 }
-
   def uninstall
     destroy
   end
@@ -15,7 +13,6 @@ class Shop < ActiveRecord::Base
   def api_version
     ShopifyApp.configuration.api_version
   end
-
 
   def increment_with_sql!(attribute, by = 1)
     raise ArgumentError("Invalid attribute: #{attribute}") unless attribute_names.include?(attribute.to_s)
