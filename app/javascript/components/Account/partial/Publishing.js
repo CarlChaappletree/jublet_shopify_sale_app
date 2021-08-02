@@ -48,9 +48,6 @@ const Publishing = () => {
               </Banner>
             ) : null}
             <div style={{ margin: '20px 0' }}>
-              <p>{`${shopStore.approvedProducts} products are available to Jublet`}</p>
-            </div>
-            <div style={{ margin: '20px 0' }}>
               <Stack spacing="loose">
                 <Badge
                   status="success"
@@ -59,7 +56,7 @@ const Publishing = () => {
                 >
                   Approved
                 </Badge>
-                <p>155 products are available to Jublet</p>
+                <p>{`${shopStore.approvedProducts} products`}</p>
               </Stack>
             </div>
             <div style={{ margin: '20px 0' }}>
@@ -71,7 +68,7 @@ const Publishing = () => {
                 >
                   Not approved
                 </Badge>
-                <p>155 products are available to Jublet</p>
+                <p>{`${productListingData.productListing.ids.length - shopStore.approvedProducts} products`}</p>
               </Stack>
             </div>
             <Card.Section subdued>
