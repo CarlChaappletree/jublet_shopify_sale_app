@@ -71,6 +71,14 @@ const Publishing = () => {
                 <p>{`${productListingData.productListing.ids.length - shopStore.approvedProducts} products`}</p>
               </Stack>
             </div>
+            <div style={{ margin: '10px 0' }}>
+              <Link
+                url="https://sales-channel-rails-react-store.myshopify.com/admin/bulk?resource_name=Product&edit=metafields.sc-jublet.jublet_category:string"
+                external
+              >
+                View all products
+              </Link>
+            </div>
             <Card.Section subdued>
               <TextContainer>Jublet takes up to 3 business days to review published products </TextContainer>
             </Card.Section>
