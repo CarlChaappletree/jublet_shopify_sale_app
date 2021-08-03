@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2021_08_03_081807) do
 
   create_table "products", force: :cascade do |t|
     t.string "title", default: "", null: false
+    t.bigint "shopify_product_id", null: false
     t.boolean "approved", default: false
     t.bigint "shop_id"
     t.datetime "created_at", precision: 6, null: false
