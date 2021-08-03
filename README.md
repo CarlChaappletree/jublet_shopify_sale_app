@@ -43,7 +43,7 @@ $ rails s -p 8081
 4. Shopify webhook
    a. Generate an webhook with commend (shopify_app gem)
    b. Check <APP_URL> env value in .env to be the same url
-   c. Turn on the sidekiq
+   c. Turn on or restart the sidekiq
    ```console
      bundle exec sidekiq
    ```

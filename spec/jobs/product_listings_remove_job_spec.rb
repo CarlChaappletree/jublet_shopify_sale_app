@@ -30,4 +30,8 @@ RSpec.describe ProductListingsRemoveJob, type: :job do
     ProductListingsRemoveJob.perform_now(shop_domain: shop.shopify_domain, webhook: data)
     expect(Product.where(shopify_product_id: product.shopify_product_id)).not_to exist
   end
+
+  it 'removes product by shopify admin panel' do
+    # Confirmed that it trigger the product/listings remove webhook
+  end
 end
