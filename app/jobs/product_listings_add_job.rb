@@ -12,7 +12,6 @@ class ProductListingsAddJob < ActiveJob::Base
       product = ShopifyAPI::Product.find(webhook.dig('product_listing', 'product_id'))
       product_metafields = product.metafields
       if product_metafields.any? && product_metafields.any? { |m| m.namespace == 'sc-jublet' }
-        shop.increment_with_sql!('approved_products', 1)
       end
     end
   end

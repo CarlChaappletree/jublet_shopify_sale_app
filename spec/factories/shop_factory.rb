@@ -7,6 +7,5 @@ FactoryBot.define do
     sequence(:approved) { false }
     sequence(:rejected) { false }
     sequence(:connected) { false }
-    sequence(:approved_products) { 0 }
   end
 end

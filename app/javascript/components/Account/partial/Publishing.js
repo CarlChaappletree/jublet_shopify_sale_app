@@ -66,7 +66,7 @@ const Publishing = () => {
                     >
                       Approved
                     </Badge>
-                    <p>{`${shopStore.approvedProducts} products`}</p>
+                    {/* <p>{`${shopStore.approvedProducts} products`}</p> */}
                   </Stack>
                 </div>
                 <div style={{ margin: '20px 0' }}>
@@ -78,7 +78,7 @@ const Publishing = () => {
                     >
                       Not approved
                     </Badge>
-                    <p>{`${productListingData.productListing.ids.length - shopStore.approvedProducts} products`}</p>
+                    {/* <p>{`${productListingData.productListing.ids.length - shopStore.approvedProducts} products`}</p> */}
                   </Stack>
                 </div>
                 <div style={{ margin: '10px 0' }}>
