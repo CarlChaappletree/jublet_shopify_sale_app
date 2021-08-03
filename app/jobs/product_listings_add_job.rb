@@ -9,14 +9,11 @@ class ProductListingsAddJob < ActiveJob::Base
       return
     end
     shop.with_shopify_session do
-      check_metafields(webhook)
+      product = ShopifyAPI::Product.find(webhook.dig('product_listing', 'product_id'))
+      product_metafields = product.metafields
+      if product_metafields.any? && product_metafields.any? { |m| m.namespace == 'sc-jublet' }
+        shop.increment_with_sql!('approved_products', 1)
+      end
     end
-  end
-
-  private
-
-  def check_metafields(webhook)
-    product = ShopifyAPI::Product.find(webhook.dig('webhook', 'product_listing', 'product_id'))
-    shop.increment_with_sql!('approved_products', 1) if product.metafields.any?
   end
 end

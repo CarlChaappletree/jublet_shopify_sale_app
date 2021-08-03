@@ -12,6 +12,7 @@ ShopifyApp.configure do |config|
   config.shop_session_repository = 'Shop'
   config.allow_jwt_authentication = true
   config.webhooks = [
+    { topic: 'product_listings/update', address: "#{ENV['APP_URL']}/webhooks/product_listings_update", format: 'json' },
     { topic: 'product_listings/add', address: "#{ENV['APP_URL']}/webhooks/product_listings_add", format: 'json' },
     { topic: 'products/create', address: "#{ENV['APP_URL']}/webhooks/products_create", format: 'json' },
     { topic: 'app/uninstalled', address: "#{ENV['APP_URL']}/webhooks/app_uninstalled", format: 'json' }

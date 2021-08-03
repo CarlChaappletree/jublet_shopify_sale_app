@@ -39,3 +39,20 @@ Run ngrok with default port
 ```console
 $ rails s -p 8081
 ```
+
+4. Shopify webhook
+   a. Generate an webhook with commend (shopify_app gem)
+   b. Check <APP_URL> env value in .env to be the same url
+   c. Turn on the sidekiq
+   ```console
+     bundle exec sidekiq
+   ```
+
+Trouble shooting
+
+- Check sidekiq running
+- Reinstall the app on the shopify
+
+5. Testing
+
+- Some testing rely on shopify server to generate API calls so <SHOPIFY_TEST_TOKEN> must be the same as your current dev shop token

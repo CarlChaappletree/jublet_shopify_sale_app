@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ReactContextStore } from '../../../context/ReactContext';
 import { useQuery } from '@apollo/client';
-import { Layout, Card, Banner, Badge, Stack, TextContainer, Spinner, Link } from '@shopify/polaris';
+import { Button, Layout, Card, Banner, Badge, Stack, TextContainer, Spinner, Link } from '@shopify/polaris';
 import { PRODUCT_LISTING_QUERY } from '../../../operations/query';
 
 const Publishing = () => {
@@ -33,7 +33,7 @@ const Publishing = () => {
           <>
             {(productListingData &&
               productListingData.productListing &&
-              productListingData.productListing.ids.length) === 0 ? (
+              productListingData.productListing.ids.length) == 0 ? (
               <Banner title="Make products available to Jublet" status="info">
                 <p>
                   To start selling and marketing on Jublet, you need to set the product status as active and select the
@@ -45,43 +45,55 @@ const Publishing = () => {
                 >
                   Learn how to manage product availability.
                 </Link>
+                <div style={{ margin: '10px 0 5px' }}>
+                  <Button
+                    outline
+                    url="https://sales-channel-rails-react-store.myshopify.com/admin/bulk?resource_name=Product&edit=metafields.sc-jublet.jublet_category%3Astring%2Cpublications.74550050971.published_at&show=&ids=&app_context=&metafield_titles=&metafield_options="
+                    external
+                  >
+                    View product
+                  </Button>
+                </div>
               </Banner>
-            ) : null}
-            <div style={{ margin: '20px 0' }}>
-              <Stack spacing="loose">
-                <Badge
-                  status="success"
-                  progress="complete"
-                  statusAndProgressLabelOverride="Status: Published. Your online store is visible."
-                >
-                  Approved
-                </Badge>
-                <p>{`${shopStore.approvedProducts} products`}</p>
-              </Stack>
-            </div>
-            <div style={{ margin: '20px 0' }}>
-              <Stack spacing="loose">
-                <Badge
-                  status="critical"
-                  progress="incomplete"
-                  statusAndProgressLabelOverride="Status: Published. Your online store is visible."
-                >
-                  Not approved
-                </Badge>
-                <p>{`${productListingData.productListing.ids.length - shopStore.approvedProducts} products`}</p>
-              </Stack>
-            </div>
-            <div style={{ margin: '10px 0' }}>
-              <Link
-                url="https://sales-channel-rails-react-store.myshopify.com/admin/bulk?resource_name=Product&edit=metafields.sc-jublet.jublet_category:string"
-                external
-              >
-                View all products
-              </Link>
-            </div>
-            <Card.Section subdued>
-              <TextContainer>Jublet takes up to 3 business days to review published products </TextContainer>
-            </Card.Section>
+            ) : (
+              <>
+                <div style={{ margin: '20px 0' }}>
+                  <Stack spacing="loose">
+                    <Badge
+                      status="success"
+                      progress="complete"
+                      statusAndProgressLabelOverride="Status: Published. Your online store is visible."
+                    >
+                      Approved
+                    </Badge>
+                    <p>{`${shopStore.approvedProducts} products`}</p>
+                  </Stack>
+                </div>
+                <div style={{ margin: '20px 0' }}>
+                  <Stack spacing="loose">
+                    <Badge
+                      status="critical"
+                      progress="incomplete"
+                      statusAndProgressLabelOverride="Status: Published. Your online store is visible."
+                    >
+                      Not approved
+                    </Badge>
+                    <p>{`${productListingData.productListing.ids.length - shopStore.approvedProducts} products`}</p>
+                  </Stack>
+                </div>
+                <div style={{ margin: '10px 0' }}>
+                  <Link
+                    url="https://sales-channel-rails-react-store.myshopify.com/admin/bulk?resource_name=Product&edit=metafields.sc-jublet.jublet_category%3Astring%2Cpublications.74550050971.published_at&show=&ids=&app_context=&metafield_titles=&metafield_options="
+                    external
+                  >
+                    View all products
+                  </Link>
+                </div>
+                <Card.Section subdued>
+                  <TextContainer>Jublet takes up to 3 business days to review published products </TextContainer>
+                </Card.Section>
+              </>
+            )}
           </>
         )}
       </Card>
