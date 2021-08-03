@@ -12,7 +12,7 @@ const Publishing = () => {
       description="Products that are being synced to your catalog, or have errors preventing their sync, are shown here."
     >
       <Card sectioned title="Products status">
-        {shopStore.productListingsCount == 0 ? (
+        {shopStore.notApprovedProducts + shopStore.approvedProducts == 0 ? (
           <Banner title="Make products available to Jublet" status="info">
             <p>
               To start selling and marketing on Jublet, you need to set the product status as active and select the
@@ -57,7 +57,7 @@ const Publishing = () => {
                 >
                   Not approved
                 </Badge>
-                <p>{`${shopStore.productListingsCount - shopStore.approvedProducts} products`}</p>
+                <p>{`${shopStore.notApprovedProducts} products`}</p>
               </Stack>
             </div>
             <div style={{ margin: '10px 0' }}>
