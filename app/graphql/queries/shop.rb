@@ -6,6 +6,7 @@ module Queries
 
     def resolve
       shop = ::Shop.find_by!(shopify_domain: ShopifyAPI::Shop.current.domain)
+      product_listings_count = ShopifyAPI::ProductListing.product_ids.count
       {
         id: shop.id,
         shopify_domain: shop.shopify_domain,
@@ -17,6 +18,7 @@ module Queries
         stripe_account_id: shop.stripe_account_id,
         has_stripe_account_completed_process: shop.has_stripe_account_completed_process,
         is_stripe_account_payouts_enabled: shop.is_stripe_account_payouts_enabled,
+        product_listings_count: product_listings_count,
         approved_products: shop.products.where(approved: true).count
       }
     rescue ActiveRecord::RecordInvalid => e

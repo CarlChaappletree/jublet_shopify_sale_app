@@ -10,6 +10,7 @@ module Types
     field :stripe_account_id, String, null: true
     field :has_stripe_account_completed_process, Boolean, null: true
     field :is_stripe_account_payouts_enabled, Boolean, null: true
+    field :product_listings_count, Int, null: true
     field :approved_products, Int, null: true
   end
 end

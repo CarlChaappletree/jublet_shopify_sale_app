@@ -12,15 +12,8 @@ export const SHOP_QUERY = gql`
       stripeAccountId
       hasStripeAccountCompletedProcess
       isStripeAccountPayoutsEnabled
+      productListingsCount
       approvedProducts
-    }
-  }
-`;
-
-export const PRODUCT_LISTING_QUERY = gql`
-  query GetShop {
-    productListing {
-      ids
     }
   }
 `;

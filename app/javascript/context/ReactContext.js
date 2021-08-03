@@ -41,6 +41,7 @@ export default function ReactContext({ children }) {
       hasStripeAccountCompletedProcess: queryData && queryData.shop.hasStripeAccountCompletedProcess,
       isStripeAccountPayoutsEnabled: queryData && queryData.shop.isStripeAccountPayoutsEnabled,
       approvedProducts: queryData && queryData.shop.approvedProducts,
+      productListingsCount: queryData && queryData.shop.productListingsCount,
     },
     applicationViewStore: {
       applicationViewDispatch,
