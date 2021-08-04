@@ -62,4 +62,4 @@ Trouble shooting
   - Debug note
     a. Does not keep c.allow_http_connections_when_no_cassette = false. It means if there are no cassette, it calls http request without mock data. The best way is that we mock every single http request.
     b. Better not use c.ignore_request { url } because we should mock every single request to make all data consistent.
-    c. A debug example
+    c. A debug example commit https://github.com/Scandinavia-Handcrafts/jublet_shopify_sale_app/commit/2357d158bbe44a5c713d382410956cc02858cf60
