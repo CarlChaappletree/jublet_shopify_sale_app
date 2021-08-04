@@ -24,7 +24,7 @@ class ProductListingsAddJob < ActiveJob::Base
     else
       # invalid metafields
       create_or_find_by_product(product, shop, false)
-      Shopify::ResourceFeedbacksCreator.new(
+      ::Shopify::ResourceFeedbacksCreator.new(
         shopify_domain: shop.shopify_domain,
         product_id: product.id.to_s,
         product_updated_at: product.updated_at,
