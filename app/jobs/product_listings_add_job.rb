@@ -24,7 +24,13 @@ class ProductListingsAddJob < ActiveJob::Base
     else
       # invalid metafields
       create_or_find_by_product(product, shop, false)
-      create_resource_feedbacks!(product, shop)
+      Shopify::ResourceFeedbacksCreator.new(
+        shopify_domain: shop.shopify_domain,
+        product_id: product.id.to_s,
+        product_updated_at: product.updated_at,
+        shopify_token: shop.shopify_token,
+        messages: ['Needs a Jublet category.']
+      ).call
     end
   end
 
@@ -35,9 +41,5 @@ class ProductListingsAddJob < ActiveJob::Base
     else
       shop.products.create(title: product.title, shopify_product_id: product.id, approved: approved)
     end
-  end
-
-  def create_resource_feedbacks!(product, shop)
-
   end
 end
