@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 04 Aug 2021 08:11:55 GMT
+      - Wed, 04 Aug 2021 08:18:14 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -68,7 +68,7 @@ http_interactions:
         https://c.paypal.com https://maps.googleapis.com https://www.google-analytics.com
         https://v.shopify.com https://widget.intercom.io https://js.intercomcdn.com
         ''self'' ''unsafe-inline'' ''unsafe-eval''; upgrade-insecure-requests; report-uri
-        /csp-report?source%5Baction%5D=show&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fshops&source%5Bsection%5D=admin_api&source%5Buuid%5D=733e5b89-d0bd-4975-ad5f-e816770748ec'
+        /csp-report?source%5Baction%5D=show&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fshops&source%5Bsection%5D=admin_api&source%5Buuid%5D=7893e6e3-5de9-4818-87ee-23c82a1304e4'
       X-Content-Type-Options:
       - nosniff
       X-Download-Options:
@@ -76,7 +76,7 @@ http_interactions:
       X-Permitted-Cross-Domain-Policies:
       - none
       X-Xss-Protection:
-      - 1; mode=block; report=/xss-report?source%5Baction%5D=show&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fshops&source%5Bsection%5D=admin_api&source%5Buuid%5D=733e5b89-d0bd-4975-ad5f-e816770748ec
+      - 1; mode=block; report=/xss-report?source%5Baction%5D=show&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fshops&source%5Bsection%5D=admin_api&source%5Buuid%5D=7893e6e3-5de9-4818-87ee-23c82a1304e4
       X-Dc:
       - gcp-europe-north1,gcp-us-central1,gcp-us-central1
       Nel:
@@ -86,7 +86,7 @@ http_interactions:
       - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifysvc.com/v1/reports/nel/20190325/shopify"}]}'
       - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifysvc.com/v1/reports/nel/20190325/shopify"}]}'
       X-Request-Id:
-      - 733e5b89-d0bd-4975-ad5f-e816770748ec
+      - 7893e6e3-5de9-4818-87ee-23c82a1304e4
       Cf-Cache-Status:
       - DYNAMIC
       Expect-Ct:
@@ -94,7 +94,7 @@ http_interactions:
       Server:
       - cloudflare
       Cf-Ray:
-      - 67965158f83916a5-ARN
+      - 67965a9768e4f15a-ARN
       Alt-Svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400, h3=":443";
         ma=86400
@@ -107,73 +107,5 @@ http_interactions:
         SEK","weight_unit":"kg","province_code":null,"taxes_included":true,"auto_configure_tax_inclusivity":null,"tax_shipping":null,"county_taxes":true,"plan_display_name":"Developer
         Preview","plan_name":"partner_test","has_discounts":false,"has_gift_cards":false,"myshopify_domain":"sales-channel-rails-react-store.myshopify.com","google_apps_domain":null,"google_apps_login_enabled":null,"money_in_emails_format":"{{amount_no_decimals}}
         kr","money_with_currency_in_emails_format":"{{amount_no_decimals}} SEK","eligible_for_payments":true,"requires_extra_payments_agreement":false,"password_enabled":true,"has_storefront":true,"eligible_for_card_reader_giveaway":false,"finances":true,"primary_location_id":63230050459,"cookie_consent_level":"implicit","visitor_tracking_consent_preference":"allow_all","checkout_api_supported":false,"multi_location_enabled":true,"setup_required":false,"pre_launch_enabled":false,"enabled_presentment_currencies":["SEK"]}}'
-  recorded_at: Wed, 04 Aug 2021 08:11:55 GMT
-- request:
-    method: post
-    uri: https://api.stripe.com/v1/account_links
-    body:
-      encoding: UTF-8
-      string: account=acct_1JBDI42E9AzHoFKF&refresh_url=https%3A%2F%2Fjublet.com%2Fshop_application%2Fabout&return_url=https%3A%2F%2Fjublet.com%2Fabout&type=account_onboarding
-    headers:
-      User-Agent:
-      - Stripe/v1 RubyBindings/5.35.0
-      Authorization:
-      - Bearer <STRIPE_API>
-      Content-Type:
-      - application/x-www-form-urlencoded
-      X-Stripe-Client-Telemetry:
-      - '{"last_request_metrics":{"request_id":"req_psrhMkJiaIVEIO","request_duration_ms":504}}'
-      X-Stripe-Client-User-Agent:
-      - '{"bindings_version":"5.35.0","lang":"ruby","lang_version":"2.7.1 p83 (2020-03-31)","platform":"x86_64-darwin19","engine":"ruby","publisher":"stripe","uname":"Darwin
-        chaseung-us-MacBook-Pro.local 20.5.0 Darwin Kernel Version 20.5.0: Sat May  8
-        05:10:33 PDT 2021; root:xnu-7195.121.3~9/RELEASE_X86_64 x86_64","hostname":"chaseung-us-MacBook-Pro.local"}'
-      Accept-Encoding:
-      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
-      Accept:
-      - "*/*"
-  response:
-    status:
-      code: 200
-      message: OK
-    headers:
-      Server:
-      - nginx
-      Date:
-      - Wed, 04 Aug 2021 08:11:56 GMT
-      Content-Type:
-      - application/json
-      Content-Length:
-      - '155'
-      Connection:
-      - keep-alive
-      Access-Control-Allow-Credentials:
-      - 'true'
-      Access-Control-Allow-Methods:
-      - GET, POST, HEAD, OPTIONS, DELETE
-      Access-Control-Allow-Origin:
-      - "*"
-      Access-Control-Expose-Headers:
-      - Request-Id, Stripe-Manage-Version, X-Stripe-External-Auth-Required, X-Stripe-Privileged-Session-Required
-      Access-Control-Max-Age:
-      - '300'
-      Cache-Control:
-      - no-cache, no-store
-      Request-Id:
-      - req_OXwRwHkgPalJcQ
-      Stripe-Version:
-      - '2020-03-02'
-      X-Stripe-C-Cost:
-      - '5'
-      Strict-Transport-Security:
-      - max-age=31556926; includeSubDomains; preload
-    body:
-      encoding: UTF-8
-      string: |
-        {
-          "object": "account_link",
-          "created": 1628064716,
-          "expires_at": 1628065016,
-          "url": "https://connect.stripe.com/express/onboarding/bDwaqUJIMHcd"
-        }
-  recorded_at: Wed, 04 Aug 2021 08:11:56 GMT
+  recorded_at: Wed, 04 Aug 2021 08:18:14 GMT
 recorded_with: VCR 6.0.0

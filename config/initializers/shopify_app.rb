@@ -15,7 +15,6 @@ ShopifyApp.configure do |config|
     { topic: 'product_listings/remove', address: "#{ENV['APP_URL']}/webhooks/product_listings_remove", format: 'json' },
     { topic: 'product_listings/update', address: "#{ENV['APP_URL']}/webhooks/product_listings_update", format: 'json' },
     { topic: 'product_listings/add', address: "#{ENV['APP_URL']}/webhooks/product_listings_add", format: 'json' },
-    { topic: 'products/create', address: "#{ENV['APP_URL']}/webhooks/products_create", format: 'json' },
     { topic: 'app/uninstalled', address: "#{ENV['APP_URL']}/webhooks/app_uninstalled", format: 'json' }
   ]
 end

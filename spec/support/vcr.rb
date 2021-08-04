@@ -7,7 +7,7 @@ VCR.configure do |c|
   # to (I believe) check for updates. These requests will just show up as
   # noise in our cassettes unless we tell VCR to ignore these requests.
   c.ignore_hosts "chromedriver.storage.googleapis.com"
-  c.ignore_request { 'https://sync-app-02.myshopify.com/admin/api/2020-07/shop.json' }
+  # c.ignore_request { 'https://sync-app-02.myshopify.com/admin/api/2020-07/shop.json' }
 
   c.filter_sensitive_data("<STRIPE_API>") do
     ENV['STRIPE_API_KEY']

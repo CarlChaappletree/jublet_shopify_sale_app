@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Mutations
-  RSpec.describe UpdateShop, type: :request, vcr: false, sendgrid: false  do
+  RSpec.describe UpdateShop, type: :request, vcr: true, sendgrid: false  do
     describe '.resolve' do
       let(:shop) { create(:shop) }
       let(:form) {
