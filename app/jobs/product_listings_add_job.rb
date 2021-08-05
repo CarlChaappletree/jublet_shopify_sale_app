@@ -1,4 +1,6 @@
 class ProductListingsAddJob < ActiveJob::Base
+  include ShopifyProductValidatorHelper
+
   queue_as :shopify_webhook
 
   def perform(shop_domain:, webhook:)
@@ -32,12 +34,6 @@ class ProductListingsAddJob < ActiveJob::Base
   end
 
   private
-
-  def product_approved?(product)
-    (product.metafields.any? { |m| m.namespace == 'sc-jublet' } &&
-      product.body_html.present? &&
-      product.images.present?)
-  end
 
   # updates products if it already exists otherwise creates
   def create_or_find_by_product(product, shop, approved:)

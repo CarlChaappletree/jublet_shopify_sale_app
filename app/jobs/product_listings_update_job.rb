@@ -1,4 +1,6 @@
 class ProductListingsUpdateJob < ActiveJob::Base
+  include ShopifyProductValidatorHelper
+
   def perform(shop_domain:, webhook:)
     shop = Shop.find_by(shopify_domain: shop_domain)
 
@@ -35,13 +37,5 @@ class ProductListingsUpdateJob < ActiveJob::Base
         ).invalid!
       end
     end
-  end
-
-  private
-
-  def product_approved?(product)
-    (product.metafields.any? { |m| m.namespace == 'sc-jublet' } &&
-      product.body_html.present? &&
-      product.images.present?)
   end
 end
