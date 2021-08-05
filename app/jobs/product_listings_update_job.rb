@@ -8,29 +8,40 @@ class ProductListingsUpdateJob < ActiveJob::Base
     end
 
     shop.with_shopify_session do
-      metafields_valid?(ShopifyAPI::Product.find(webhook.dig('product_listing', 'product_id')), shop)
+      product = ShopifyAPI::Product.find(webhook.dig('product_listing', 'product_id'))
+
+      if product_approved?(product)
+        shop.products.where(shopify_product_id: product.id).update(approved: true)
+
+        ::Shopify::ProductResourceFeedbacksCreator.new(
+          shopify_domain: shop.shopify_domain,
+          product_id: product.id.to_s,
+          product_updated_at: product.updated_at,
+          shopify_token: shop.shopify_token
+        ).valid!
+      else
+        shop.products.where(shopify_product_id: product.id).update(approved: false)
+
+        ::Shopify::ProductResourceFeedbacksCreator.new(
+          shopify_domain: shop.shopify_domain,
+          product_id: product.id.to_s,
+          product_updated_at: product.updated_at,
+          shopify_token: shop.shopify_token,
+          feedbacks: {
+            jublet_category_valid?: product.metafields.any? { |m| m.namespace == 'sc-jublet' },
+            description_valid?: product.body_html.present?,
+            image_valid?: product.images.present?
+          }
+        ).invalid!
+      end
     end
   end
 
   private
 
-  def metafields_valid?(get_product, shop)
-    product = shop.products.where(shopify_product_id: get_product.id)
-    if get_product.metafields.any? { |m| m.namespace == 'sc-jublet' }
-      # valid metafields
-      product.update(approved: true)
-    else
-      # invalid metafields
-      product.update(approved: false)
-
-      ::Shopify::ResourceFeedbacksCreator.new(
-        shopify_domain: shop.shopify_domain,
-        product_id: get_product.id.to_s,
-        product_updated_at: get_product.updated_at,
-        shopify_token: shop.shopify_token,
-        messages: ['Needs a Jublet category.']
-      ).call
-    end
-
+  def product_approved?(product)
+    (product.metafields.any? { |m| m.namespace == 'sc-jublet' } &&
+      product.body_html.present? &&
+      product.images.present?)
   end
 end
