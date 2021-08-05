@@ -9,7 +9,8 @@ class ProductListingsRemoveJob < ActiveJob::Base
 
     shop.with_shopify_session do
       shopify_product_id = webhook.dig('product_listing', 'product_id')
-      Product.find_by(shopify_product_id: shopify_product_id).destroy
+      product = Product.find_by(shopify_product_id: shopify_product_id)
+      product.destroy if product.present?
     end
   end
 end
