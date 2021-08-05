@@ -8,27 +8,25 @@ class ProductListingsUpdateJob < ActiveJob::Base
     end
 
     shop.with_shopify_session do
-      product = ShopifyAPI::Product.find(webhook.dig('product_listing', 'product_id'))
-      shop_product = shop.products.where(shopify_product_id: product.id)
-      metafields_valid?(shop_product, shop)
+      metafields_valid?(ShopifyAPI::Product.find(webhook.dig('product_listing', 'product_id')), shop)
     end
   end
 
   private
 
-  def metafields_valid?(shop_product, shop)
-    if product.metafields.any? { |m| m.namespace == 'sc-jublet' }
+  def metafields_valid?(get_product, shop)
+    product = shop.products.where(shopify_product_id: get_product.id)
+    if get_product.metafields.any? { |m| m.namespace == 'sc-jublet' }
       # valid metafields
-      shop_product.update(approved: true)
+      product.update(approved: true)
     else
-      shop_product.update(approved: false)
       # invalid metafields
-      create_or_find_by_product(product, shop, false)
+      product.update(approved: false)
 
       ::Shopify::ResourceFeedbacksCreator.new(
         shopify_domain: shop.shopify_domain,
-        product_id: product.id.to_s,
-        product_updated_at: product.updated_at,
+        product_id: get_product.id.to_s,
+        product_updated_at: get_product.updated_at,
         shopify_token: shop.shopify_token,
         messages: ['Needs a Jublet category.']
       ).call
