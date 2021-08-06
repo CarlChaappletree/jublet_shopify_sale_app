@@ -11,7 +11,7 @@ module Queries
           {
             'connected' => false,
             'legalAgreement' => false,
-            'approved' => false,
+            'approved' => true,
             'rejected' => false,
             'rejectedReason' => nil
           }

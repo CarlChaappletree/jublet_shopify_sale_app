@@ -11,6 +11,11 @@ class ProductListingsAddJob < ActiveJob::Base
       return
     end
 
+    unless shop.approved
+      logger.error("#{self.class} failed: shop '#{shop_domain}' is not approved by Jublet")
+      return
+    end
+
     shop.with_shopify_session do
       product = ShopifyAPI::Product.find(webhook.dig('product_listing', 'product_id'))
 

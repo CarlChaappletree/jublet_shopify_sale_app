@@ -25,7 +25,7 @@ module Mutations
             'id' => shop.id.to_s,
             'connected' => true,
             'legalAgreement' => true,
-            'approved' => false
+            'approved' => true
           }
         )
       end

@@ -4,7 +4,7 @@ FactoryBot.define do
     sequence(:shopify_token) { ENV['SHOPIFY_TEST_TOKEN'] }
     sequence(:access_scopes) { |n| "read_products" }
     sequence(:legal_agreement) { false }
-    sequence(:approved) { false }
+    sequence(:approved) { true }
     sequence(:rejected) { false }
     sequence(:connected) { false }
   end
