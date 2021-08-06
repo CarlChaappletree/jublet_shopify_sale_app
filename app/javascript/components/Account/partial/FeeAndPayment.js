@@ -105,7 +105,7 @@ const FeeAndPayment = () => {
           </>
         ) : (
           <Card.Section>
-            <Banner title="Your account is not connected" status="critical">
+            <Banner status="info">
               <p>You can start adding your account after Jublet approves your application.</p>
             </Banner>
           </Card.Section>
