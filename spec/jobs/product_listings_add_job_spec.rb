@@ -22,7 +22,6 @@ RSpec.describe ProductListingsAddJob, type: :job, vcr: true do
     expect { ProductListingsAddJob.perform_later }.to have_enqueued_job.on_queue('shopify_webhook')
   end
 
-
   let(:shop) { create(:shop) }
 
   context 'with valid product' do

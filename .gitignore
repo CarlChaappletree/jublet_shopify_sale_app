@@ -46,3 +46,9 @@ vendor
 .generators
 .idea/
 .rakeTasks
+
+# Ignore files related to API keys
+*.DS_Store
+
+# VS code
+**/.vscode/
