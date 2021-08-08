@@ -13,6 +13,7 @@ class ProductListingsAddJob < ActiveJob::Base
 
     unless shop.approved
       logger.error("#{self.class} failed: shop '#{shop_domain}' is not approved by Jublet")
+      prevent_adding_product_listing!(shop, webhook)
       return
     end
 
@@ -46,6 +47,15 @@ class ProductListingsAddJob < ActiveJob::Base
       shop.products.where(shopify_product_id: product.id).update(approved: approved)
     else
       shop.products.create(title: product.title, shopify_product_id: product.id, approved: approved)
+    end
+  end
+
+  def prevent_adding_product_listing!(shop, webhook)
+    shop.with_shopify_session do
+      product = ShopifyAPI::ProductListing.find(webhook.dig('product_listing', 'product_id'))
+      product.destroy
+    rescue ActiveResource::ResourceNotFound => e
+      logger.error("ShopifyAPI failed: #{e}")
     end
   end
 end
