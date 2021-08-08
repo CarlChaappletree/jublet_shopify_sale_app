@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Queries
-  RSpec.describe Shop, type: :request, vcr: false do
+  RSpec.describe Shop, type: :request, vcr: true do
     describe '.resolve' do
       let(:shop) { create(:shop) }
       it 'returns shop for provided shopify domain' do
@@ -11,7 +11,7 @@ module Queries
           {
             'connected' => false,
             'legalAgreement' => false,
-            'approved' => false,
+            'approved' => true,
             'rejected' => false,
             'rejectedReason' => nil
           }

@@ -1,4 +1,6 @@
 class ProductListingsAddJob < ActiveJob::Base
+  include ShopifyProductValidatorHelper
+
   queue_as :shopify_webhook
 
   def perform(shop_domain:, webhook:)
@@ -9,7 +11,51 @@ class ProductListingsAddJob < ActiveJob::Base
       return
     end
 
+    unless shop.approved
+      logger.error("#{self.class} failed: shop '#{shop_domain}' is not approved by Jublet")
+      prevent_adding_product_listing!(shop, webhook)
+      return
+    end
+
     shop.with_shopify_session do
+      product = ShopifyAPI::Product.find(webhook.dig('product_listing', 'product_id'))
+
+      if product_approved?(product)
+        create_or_find_by_product(product, shop, approved: true)
+      else
+        create_or_find_by_product(product, shop, approved: false)
+        ::Shopify::ProductResourceFeedbacksCreator.new(
+          shopify_domain: shop.shopify_domain,
+          product_id: product.id.to_s,
+          product_updated_at: product.updated_at,
+          shopify_token: shop.shopify_token,
+          feedbacks: {
+            jublet_category_valid?: product.metafields.any? { |m| m.namespace == 'sc-jublet' },
+            description_valid?: product.body_html.present?,
+            image_valid?: product.images.present?
+          }
+        ).invalid!
+      end
+    end
+  end
+
+  private
+
+  # updates products if it already exists otherwise creates
+  def create_or_find_by_product(product, shop, approved:)
+    if shop.products.any? { |p| p.shopify_product_id == product.id }
+      shop.products.where(shopify_product_id: product.id).update(approved: approved)
+    else
+      shop.products.create(title: product.title, shopify_product_id: product.id, approved: approved)
+    end
+  end
+
+  def prevent_adding_product_listing!(shop, webhook)
+    shop.with_shopify_session do
+      product = ShopifyAPI::ProductListing.find(webhook.dig('product_listing', 'product_id'))
+      product.destroy
+    rescue ActiveResource::ResourceNotFound => e
+      logger.error("ShopifyAPI failed: #{e}")
     end
   end
 end

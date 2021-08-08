@@ -76,3 +76,6 @@ gem "sidekiq"
 gem "sinatra"
 
 gem 'stripe'
+
+gem 'faraday'
+

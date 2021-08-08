@@ -38,72 +38,78 @@ const FeeAndPayment = () => {
           </Stack>
         }
       >
-        <Card.Section>
-          <p>{`The bank account you're receiving payments to when shoppers buy products on Jublet`}</p>
-          <Link url="https://jublet.com/legal/policy" external>
-            Learn more
-          </Link>
-        </Card.Section>
-        <Card.Section>
-          <TextContainer>
-            {error && (
-              <Banner title="Something went wrong" status="critical">
-                <p>Please try again</p>
-              </Banner>
-            )}
-            {shopStore.hasStripeAccountCompletedProcess && shopStore.hasStripeAccountCompletedProcess ? (
-              <>
-                {paymentBannerStatus && (
-                  <Banner
-                    title="Your account is connected"
-                    onDismiss={() => {
-                      setPaymentBannerStatus(false);
-                    }}
-                    status="success"
-                  >
-                    <p>To edit your account information, click the edit button.</p>
+        {shopStore.approved || shopStore.rejected ? (
+          <>
+            <Card.Section>
+              <p>{`The bank account you're receiving payments to when shoppers buy products on Jublet`}</p>
+              <Link url="https://jublet.com/legal/policy" external>
+                Learn more
+              </Link>
+            </Card.Section>
+            <Card.Section>
+              <TextContainer>
+                {error && (
+                  <Banner title="Something went wrong" status="critical">
+                    <p>Please try again</p>
                   </Banner>
                 )}
-              </>
-            ) : (
-              <>
-                {paymentBannerStatus && (
-                  <Banner
-                    title="Your account is not connected"
-                    onDismiss={() => {
-                      setPaymentBannerStatus(false);
-                    }}
-                    status="critical"
-                  >
-                    <p>
-                      To receive payment from Jublet, you need to complete this process. <br />
-                      After updating your information, please refresh the status.
-                    </p>
-                  </Banner>
-                )}
-              </>
-            )}
-            <Stack spacing="loose" vertical>
-              <Stack distribution="trailing">
-                {shopStore.approved && !shopStore.rejected ? (
-                  <ButtonGroup>
-                    <BankAccountModal />
-                    <Button
-                      icon={<Icon source={RefreshMajor} color="base" />}
-                      plain
-                      loading={shopQueryLoading}
-                      onClick={handleRefresh}
-                    >
-                      Refresh status
-                    </Button>
-                  </ButtonGroup>
+                {shopStore.hasStripeAccountCompletedProcess && shopStore.hasStripeAccountCompletedProcess ? (
+                  <>
+                    {paymentBannerStatus && (
+                      <Banner
+                        title="Your account is connected"
+                        onDismiss={() => {
+                          setPaymentBannerStatus(false);
+                        }}
+                        status="success"
+                      >
+                        <p>To edit your account information, click the edit button.</p>
+                      </Banner>
+                    )}
+                  </>
                 ) : (
-                  <p>You can add your account after Jublet approves your application.</p>
+                  <>
+                    {paymentBannerStatus && (
+                      <Banner
+                        title="Your account is not connected"
+                        onDismiss={() => {
+                          setPaymentBannerStatus(false);
+                        }}
+                        status="critical"
+                      >
+                        <p>
+                          To receive payment from Jublet, you need to complete this process. <br />
+                          After updating your information, please refresh the status.
+                        </p>
+                      </Banner>
+                    )}
+                  </>
                 )}
-              </Stack>
-            </Stack>
-          </TextContainer>
-        </Card.Section>
+                <Stack spacing="loose" vertical>
+                  <Stack distribution="trailing">
+                    <ButtonGroup>
+                      <BankAccountModal />
+                      <Button
+                        icon={<Icon source={RefreshMajor} color="base" />}
+                        plain
+                        loading={shopQueryLoading}
+                        onClick={handleRefresh}
+                      >
+                        Refresh status
+                      </Button>
+                    </ButtonGroup>
+                  </Stack>
+                </Stack>
+              </TextContainer>
+            </Card.Section>
+          </>
+        ) : (
+          <Card.Section>
+            <Banner status="info">
+              <p>You can start adding your account after Jublet approves your application.</p>
+            </Banner>
+          </Card.Section>
+        )}
       </Card>
     </Layout.AnnotatedSection>
   );

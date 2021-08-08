@@ -5,7 +5,21 @@ module Queries
     type Types::ShopType, null: false
 
     def resolve
-      ::Shop.find_by!(shopify_domain: ShopifyAPI::Shop.current.domain)
+      shop = ::Shop.find_by!(shopify_domain: ShopifyAPI::Shop.current.domain)
+      {
+        id: shop.id,
+        shopify_domain: shop.shopify_domain,
+        legal_agreement: shop.legal_agreement,
+        connected: shop.connected,
+        approved: shop.approved,
+        rejected: shop.rejected,
+        rejected_reason: shop.rejected_reason,
+        stripe_account_id: shop.stripe_account_id,
+        has_stripe_account_completed_process: shop.has_stripe_account_completed_process,
+        is_stripe_account_payouts_enabled: shop.is_stripe_account_payouts_enabled,
+        approved_products: shop.products.where(approved: true).count,
+        not_approved_products: shop.products.where(approved: false).count
+      }
     rescue ActiveRecord::RecordInvalid => e
       GraphQL::ExecutionError.new(e.to_s)
     rescue => e

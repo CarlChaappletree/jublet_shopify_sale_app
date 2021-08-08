@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 module Mutations
-  RSpec.describe UpdateShop, type: :request, vcr: false, sendgrid: false  do
+  RSpec.describe UpdateShop, type: :request, vcr: true, sendgrid: false  do
     describe '.resolve' do
       let(:shop) { create(:shop) }
       let(:form) {
@@ -25,7 +25,7 @@ module Mutations
             'id' => shop.id.to_s,
             'connected' => true,
             'legalAgreement' => true,
-            'approved' => false
+            'approved' => true
           }
         )
       end

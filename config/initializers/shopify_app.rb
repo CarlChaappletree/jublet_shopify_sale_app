@@ -1,9 +1,9 @@
 ShopifyApp.configure do |config|
-  config.application_name = 'Jublet sale channel app'
+  config.application_name = 'Jublet'
   config.api_key = ENV['SHOPIFY_API_KEY']
   config.secret = ENV['SHOPIFY_API_SECRET']
   config.old_secret = ''
-  config.scope = 'read_products, read_product_listings, write_products, write_resource_feedbacks' # Consult this page for more scope options:
+  config.scope = 'read_products, read_product_listings, write_products, write_resource_feedbacks, write_product_listings' # Consult this page for more scope options:
                                                                                                   # https://help.shopify.com/en/api/getting-started/authentication/oauth/scopes
   config.reauth_on_access_scope_changes = true
   config.embedded_app = true
@@ -12,9 +12,10 @@ ShopifyApp.configure do |config|
   config.shop_session_repository = 'Shop'
   config.allow_jwt_authentication = true
   config.webhooks = [
-    { topic: 'product_listings/add', address: 'https://d785b851d74a.ngrok.io/webhooks/product_listings_add', format: 'json' },
-    { topic: 'products/create', address: 'https://d785b851d74a.ngrok.io/webhooks/products_create', format: 'json' },
-    { topic: 'app/uninstalled', address: 'https://d785b851d74a.ngrok.io/webhooks/app_uninstalled', format: 'json' }
+    { topic: 'product_listings/remove', address: "#{ENV['APP_URL']}/webhooks/product_listings_remove", format: 'json' },
+    { topic: 'product_listings/update', address: "#{ENV['APP_URL']}/webhooks/product_listings_update", format: 'json' },
+    { topic: 'product_listings/add', address: "#{ENV['APP_URL']}/webhooks/product_listings_add", format: 'json' },
+    { topic: 'app/uninstalled', address: "#{ENV['APP_URL']}/webhooks/app_uninstalled", format: 'json' }
   ]
 end
 

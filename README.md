@@ -39,3 +39,27 @@ Run ngrok with default port
 ```console
 $ rails s -p 8081
 ```
+
+4. Shopify webhook
+   a. Generate an webhook with commend (shopify_app gem)
+   b. Check <APP_URL> env value in .env to be the same url
+   c. Turn on or restart the sidekiq
+   ```console
+     bundle exec sidekiq
+   ```
+
+Trouble shooting
+
+- Check sidekiq running
+- Reinstall the app on the shopify
+
+5. Testing
+
+- Some testing rely on shopify server to generate API calls so <SHOPIFY_TEST_TOKEN> must be the same as your current dev shop token
+
+- VCR
+
+  - Debug note
+    a. Does not keep c.allow_http_connections_when_no_cassette = false. It means if there are no cassette, it calls http request without mock data. The best way is that we mock every single http request.
+    b. Better not use c.ignore_request { url } because we should mock every single request to make all data consistent.
+    c. A debug example commit https://github.com/Scandinavia-Handcrafts/jublet_shopify_sale_app/commit/2357d158bbe44a5c713d382410956cc02858cf60

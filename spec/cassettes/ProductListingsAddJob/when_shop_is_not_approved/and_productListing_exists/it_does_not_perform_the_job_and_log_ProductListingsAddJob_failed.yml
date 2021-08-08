@@ -1,0 +1,211 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://sales-channel-rails-react-store.myshopify.com/admin/api/2021-07/product_listings/6955505189019.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - ShopifyAPI/9.4.1 ActiveResource/5.1.1 Ruby/2.7.1 | ShopifyApp/18.0.2
+      X-Shopify-Access-Token:
+      - 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
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 08 Aug 2021 08:38:33 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Sorting-Hat-Podid:
+      - '154'
+      X-Sorting-Hat-Shopid:
+      - '57574719643'
+      Vary:
+      - Accept-Encoding
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Frame-Options:
+      - DENY
+      X-Shopid:
+      - '57574719643'
+      X-Shardid:
+      - '154'
+      X-Stats-Userid:
+      - ''
+      X-Stats-Apiclientid:
+      - '5429749'
+      X-Stats-Apipermissionid:
+      - '332930056347'
+      Http-X-Shopify-Shop-Api-Call-Limit:
+      - 1/40
+      X-Shopify-Shop-Api-Call-Limit:
+      - 1/40
+      X-Shopify-Api-Version:
+      - 2021-07
+      Strict-Transport-Security:
+      - max-age=7889238
+      X-Shopify-Stage:
+      - production
+      Content-Security-Policy:
+      - 'default-src ''self'' data: blob: ''unsafe-inline'' ''unsafe-eval'' https://*
+        shopify-pos://*; block-all-mixed-content; child-src ''self'' https://* shopify-pos://*;
+        connect-src ''self'' wss://* https://*; frame-ancestors ''none''; img-src
+        ''self'' data: blob: https:; script-src https://cdn.shopify.com https://cdn.shopifycdn.net
+        https://checkout.shopifycs.com https://api.stripe.com https://mpsnare.iesnare.com
+        https://appcenter.intuit.com https://www.paypal.com https://js.braintreegateway.com
+        https://c.paypal.com https://maps.googleapis.com https://www.google-analytics.com
+        https://v.shopify.com https://widget.intercom.io https://js.intercomcdn.com
+        ''self'' ''unsafe-inline'' ''unsafe-eval''; upgrade-insecure-requests; report-uri
+        /csp-report?source%5Baction%5D=show&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fproduct_listings&source%5Bsection%5D=admin_api&source%5Buuid%5D=fdce1b88-c25c-4d54-a0b8-edb90e1381a9'
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Xss-Protection:
+      - 1; mode=block; report=/xss-report?source%5Baction%5D=show&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fproduct_listings&source%5Bsection%5D=admin_api&source%5Buuid%5D=fdce1b88-c25c-4d54-a0b8-edb90e1381a9
+      X-Dc:
+      - gcp-europe-north1,gcp-us-central1,gcp-us-central1
+      Nel:
+      - '{"report_to":"network-errors","max_age":2592000,"success_fraction":0.0001}'
+      - '{"report_to":"network-errors","max_age":2592000,"success_fraction":0.0001}'
+      Report-To:
+      - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifysvc.com/v1/reports/nel/20190325/shopify"}]}'
+      - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifysvc.com/v1/reports/nel/20190325/shopify"}]}'
+      X-Request-Id:
+      - fdce1b88-c25c-4d54-a0b8-edb90e1381a9
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 67b76dda2ab5cb04-ARN
+      Alt-Svc:
+      - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400, h3=":443";
+        ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: '{"product_listing":{"product_id":6955505189019,"created_at":"2021-08-02T18:50:04+02:00","updated_at":"2021-08-06T17:59:25+02:00","body_html":"d","handle":"late-morning","product_type":"","title":"late
+        morning","vendor":"sales-channel-rails-react-store","available":true,"tags":"","published_at":"2021-08-06T17:43:15+02:00","variants":[{"id":40687530115227,"title":"Default
+        Title","option_values":[{"option_id":8921500582043,"name":"Title","value":"Default
+        Title"}],"price":"8.00","formatted_price":"8 kr","compare_at_price":null,"grams":0,"requires_shipping":true,"sku":"","barcode":"","taxable":true,"position":1,"available":true,"inventory_policy":"deny","inventory_quantity":0,"inventory_management":null,"fulfillment_service":"manual","weight":0.0,"weight_unit":"kg","image_id":null,"created_at":"2021-08-02T18:50:04+02:00","updated_at":"2021-08-05T16:43:36+02:00"}],"images":[{"id":31900624847003,"created_at":"2021-08-05T16:29:24+02:00","position":1,"updated_at":"2021-08-05T16:29:24+02:00","product_id":6955505189019,"src":"https:\/\/cdn.shopify.com\/s\/files\/1\/0575\/7471\/9643\/products\/ScreenShot2021-08-03at6.56.55PM.png?v=1628173764","variant_ids":[],"width":3050,"height":2008}],"options":[{"id":8921500582043,"name":"Title","product_id":6955505189019,"position":1,"values":["Default
+        Title"]}]}}'
+  recorded_at: Sun, 08 Aug 2021 08:38:33 GMT
+- request:
+    method: delete
+    uri: https://sales-channel-rails-react-store.myshopify.com/admin/api/2021-07/product_listings/6955505189019.json
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      User-Agent:
+      - ShopifyAPI/9.4.1 ActiveResource/5.1.1 Ruby/2.7.1 | ShopifyApp/18.0.2
+      X-Shopify-Access-Token:
+      - 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
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 08 Aug 2021 08:38:34 GMT
+      Content-Type:
+      - application/json
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      X-Sorting-Hat-Podid:
+      - '154'
+      X-Sorting-Hat-Shopid:
+      - '57574719643'
+      Vary:
+      - Accept-Encoding
+      Referrer-Policy:
+      - origin-when-cross-origin
+      X-Frame-Options:
+      - DENY
+      X-Shopid:
+      - '57574719643'
+      X-Shardid:
+      - '154'
+      X-Stats-Userid:
+      - ''
+      X-Stats-Apiclientid:
+      - '5429749'
+      X-Stats-Apipermissionid:
+      - '332930056347'
+      Http-X-Shopify-Shop-Api-Call-Limit:
+      - 1/40
+      X-Shopify-Shop-Api-Call-Limit:
+      - 1/40
+      X-Shopify-Api-Version:
+      - 2021-07
+      Strict-Transport-Security:
+      - max-age=7889238
+      X-Shopify-Stage:
+      - production
+      Content-Security-Policy:
+      - 'default-src ''self'' data: blob: ''unsafe-inline'' ''unsafe-eval'' https://*
+        shopify-pos://*; block-all-mixed-content; child-src ''self'' https://* shopify-pos://*;
+        connect-src ''self'' wss://* https://*; frame-ancestors ''none''; img-src
+        ''self'' data: blob: https:; script-src https://cdn.shopify.com https://cdn.shopifycdn.net
+        https://checkout.shopifycs.com https://api.stripe.com https://mpsnare.iesnare.com
+        https://appcenter.intuit.com https://www.paypal.com https://js.braintreegateway.com
+        https://c.paypal.com https://maps.googleapis.com https://www.google-analytics.com
+        https://v.shopify.com https://widget.intercom.io https://js.intercomcdn.com
+        ''self'' ''unsafe-inline'' ''unsafe-eval''; upgrade-insecure-requests; report-uri
+        /csp-report?source%5Baction%5D=destroy&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fproduct_listings&source%5Bsection%5D=admin_api&source%5Buuid%5D=4aa4c447-c405-46c4-8ed5-775db4586151'
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Xss-Protection:
+      - 1; mode=block; report=/xss-report?source%5Baction%5D=destroy&source%5Bapp%5D=Shopify&source%5Bcontroller%5D=admin%2Fproduct_listings&source%5Bsection%5D=admin_api&source%5Buuid%5D=4aa4c447-c405-46c4-8ed5-775db4586151
+      X-Dc:
+      - gcp-europe-north1,gcp-us-central1,gcp-us-central1
+      Nel:
+      - '{"report_to":"network-errors","max_age":2592000,"success_fraction":0.0001}'
+      - '{"report_to":"network-errors","max_age":2592000,"success_fraction":0.0001}'
+      Report-To:
+      - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifysvc.com/v1/reports/nel/20190325/shopify"}]}'
+      - '{"group":"network-errors","max_age":2592000,"endpoints":[{"url":"https://monorail-edge.shopifysvc.com/v1/reports/nel/20190325/shopify"}]}'
+      X-Request-Id:
+      - 4aa4c447-c405-46c4-8ed5-775db4586151
+      Cf-Cache-Status:
+      - DYNAMIC
+      Expect-Ct:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Cf-Ray:
+      - 67b76ddc7bbc0d3a-ARN
+      Alt-Svc:
+      - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400, h3=":443";
+        ma=86400
+    body:
+      encoding: ASCII-8BIT
+      string: ''
+  recorded_at: Sun, 08 Aug 2021 08:38:34 GMT
+recorded_with: VCR 6.0.0
