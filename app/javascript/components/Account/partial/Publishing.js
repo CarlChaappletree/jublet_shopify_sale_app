@@ -71,7 +71,7 @@ const Publishing = () => {
                   </Link>
                 </div>
                 <Card.Section subdued>
-                  <TextContainer>Jublet takes up to 3 business days to review published products </TextContainer>
+                  <TextContainer>It takes up to 3 hours to review published products </TextContainer>
                 </Card.Section>
               </>
             )}

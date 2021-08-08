@@ -12,7 +12,6 @@ class ProductListingsRemoveJob < ActiveJob::Base
       return
     end
 
-
     shop.with_shopify_session do
       shopify_product_id = webhook.dig('product_listing', 'product_id')
       product = Product.find_by(shopify_product_id: shopify_product_id)
