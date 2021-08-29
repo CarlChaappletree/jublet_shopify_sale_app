@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.hosts = ENV['SHOPIFY_TUNNEL_ADDRESS']
+  config.hosts =[ENV['SHOPIFY_TUNNEL_ADDRESS'], 'localhost']
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
